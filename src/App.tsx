@@ -9,7 +9,7 @@ export const App: FC = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const customers = await api.getCustomers();
+      const customers = await api.customer.getCustomers();
       setCustomers(customers);
     };
 
