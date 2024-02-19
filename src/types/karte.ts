@@ -13,4 +13,7 @@ export type karte = {
   memo5: string;
   photo: string;
   treatmentedMenuIds: string[];
+  interestingMenuIds: string[];
+  treatmented: menu[];
+  interesting: menu[];
 };

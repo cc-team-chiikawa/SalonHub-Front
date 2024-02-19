@@ -32,6 +32,8 @@ import { createApi } from "@/apis/createApi";
 import { CustomerInputForm } from "@/componets/CustomerInputForm";
 import { KartesList } from "@/componets/KartesList";
 import { karte } from "@/types";
+import MenuBar from "@/componets/MenuBar/MenuBar";
+import { Header } from "@/componets/Header";
 
 export const Customer: FC = () => {
   const [customer, setCustomer] = useState<customer>();
@@ -48,14 +50,19 @@ export const Customer: FC = () => {
   }, [api, id]);
 
   // TODO: user
+  // TODO: 灰色のばす
 
   return (
     customer && (
-      <Container>
-        <Heading fontSize="xl">{customer?.kana}</Heading>
-        <Heading>{customer?.name}</Heading>
-        <CustomerInputForm customer={customer} />
-        <KartesList karteHeaders={customer.kartes} />
+      <Container maxW="none" p={0} h={"100%"}>
+        <MenuBar />
+        <Container maxW="none" p={"2rem"} bg={"brandGray.500"} h={"100%"}>
+          <VStack alignItems={"start"} gap={"1rem"}>
+            <Header customer={customer} />
+            <CustomerInputForm customer={customer} />
+            <KartesList karteHeaders={customer.kartes} />
+          </VStack>
+        </Container>
       </Container>
     )
   );

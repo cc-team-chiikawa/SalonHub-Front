@@ -18,7 +18,7 @@ const data: karte[] = [
     customerId: "1",
     stylistId: "1",
     treatmentDay: new Date("2022-01-01"),
-    order: "短めにして、カラーリングは暗めの色にしたい",
+    order: "短めにして、カラーリングは青めの色にしたい",
     memo1:
       "結構癖っ毛で長いとスタイリングは大変そう。なので短めの髪型にし、スタイリングにはジェルを使うことおすすめ",
     memo2: "This is memo2",
@@ -27,6 +27,15 @@ const data: karte[] = [
     memo5: "This is memo5",
     photo: "https://example.com/photo.jpg",
     treatmentedMenuIds: ["1", "2"],
+    interestingMenuIds: ["1", "2"],
+    treatmented: [
+      { id: "1", name: "カット", overview: "test overview" },
+      { id: "2", name: "パーマ", overview: "test overview" },
+    ],
+    interesting: [
+      { id: "1", name: "カット", overview: "test overview" },
+      { id: "2", name: "パーマ", overview: "test overview" },
+    ],
   },
   {
     id: "2",
@@ -42,5 +51,14 @@ const data: karte[] = [
     memo5: "This is memo5",
     photo: "https://example.com/photo.jpg",
     treatmentedMenuIds: ["1", "2"],
+    interestingMenuIds: ["1", "2"],
+    treatmented: [
+      { id: "1", name: "カット", overview: "test overview" },
+      { id: "2", name: "パーマ", overview: "test overview" },
+    ],
+    interesting: [
+      { id: "1", name: "カット", overview: "test overview" },
+      { id: "2", name: "パーマ", overview: "test overview" },
+    ],
   },
 ];

@@ -12,25 +12,45 @@ export const login = async (loginInformation: loginInformation) => {
   });
 
   if (!response.ok) {
+    // TODO: エラーハンドリング
     throw new Error("Failed to post new customer");
   }
 
   const customer = await response.json();
-  return customer as customer;
+  return customer as { id: string };
 };
 
 export const getCustomers = async () => {
   const data = await fetch("/api/customers");
   const customers = await data.json();
+
+  customers.forEach((customer: customer) => {
+    // 日付を Date オブジェクトに変換
+    if (customer.birthday) {
+      customer.birthday = new Date(customer.birthday);
+    }
+  });
+
   return customers as customer[];
 };
 
 export const getCustomer = async (id: string) => {
   const data = await fetch(`/api/customers/${id}`);
-  const customers = await data.json();
+  const customer = await data.json();
 
-  // TODO: 日付ソート
-  return customers as customer;
+  // 日付を Date オブジェクトに変換
+  if (customer.birthday) {
+    customer.birthday = new Date(customer.birthday);
+  }
+
+  if (customer.kartes) {
+    customer.kartes = customer.kartes.map((karte) => ({
+      id: karte.id,
+      treatmentDay: new Date(karte.treatment_day),
+    }));
+  }
+
+  return customer as customer;
 };
 
 export const postCustomer = async (newCustomer: customer) => {
@@ -47,6 +67,12 @@ export const postCustomer = async (newCustomer: customer) => {
   }
 
   const customer = await response.json();
+
+  // 日付を Date オブジェクトに変換
+  if (customer.birthday) {
+    customer.birthday = new Date(customer.birthday);
+  }
+
   return customer as customer;
 };
 
@@ -64,5 +90,11 @@ export const patchCustomer = async (id: string, updatedCustomer: customer) => {
   }
 
   const customer = await response.json();
+
+  // 日付を Date オブジェクトに変換
+  if (customer.birthday) {
+    customer.birthday = new Date(customer.birthday);
+  }
+
   return customer as customer;
 };

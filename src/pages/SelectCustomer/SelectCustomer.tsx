@@ -1,4 +1,10 @@
-import { Button, Center, Container } from "@chakra-ui/react";
+import {
+  AbsoluteCenter,
+  Button,
+  Center,
+  Container,
+  Divider,
+} from "@chakra-ui/react";
 import { Heading, Box, Text } from "@chakra-ui/react";
 import {
   Accordion,
@@ -43,7 +49,7 @@ export const SelectCustomer: FC = () => {
   } = useForm<loginInformation>();
 
   const onSubmit = async (data: loginInformation) => {
-    const id = await api.customer.login(data);
+    const { id } = await api.customer.login(data);
 
     if (id !== undefined) {
       navigate(`/customers/${id}`);
@@ -53,39 +59,71 @@ export const SelectCustomer: FC = () => {
   };
 
   return (
-    <Center>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <VStack width={500}>
-          <InputGroup>
-            <InputLeftAddon>番号</InputLeftAddon>
-            <Input
-              type="text"
-              {...register("cardNumber", {
-                required: "This is required",
-              })}
-            />
-          </InputGroup>
-          <InputGroup>
-            <InputLeftAddon>生年月日</InputLeftAddon>
-            <Input
-              type="date"
-              {...register("birthday", {
-                required: "This is required",
-              })}
-            />
-          </InputGroup>
-          <Button
-            mt={4}
-            colorScheme="teal"
-            isLoading={isSubmitting}
-            type="submit"
-            isDisabled={!isValid}
-          >
-            顧客画面に移動
-          </Button>
-        </VStack>
-      </form>
-    </Center>
+    <Container alignItems={"center"} pt={"10rem"}>
+      <VStack gap={"2rem"}>
+        <Text fontSize={"1.5rem"} fontWeight={"bold"}>
+          お客様検索
+        </Text>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <VStack gap={"2rem"}>
+            <Box width={"25rem"}>
+              <Text>会員番号</Text>
+              <Input
+                type="text"
+                {...register("cardNumber", {
+                  required: "This is required",
+                })}
+              />
+            </Box>
+            <Box width={"25rem"}>
+              <Text>お客様の生年月日</Text>
+              <Input
+                type="date"
+                {...register("birthday", {
+                  required: "This is required",
+                })}
+              />
+            </Box>
+            <Button
+              mt={4}
+              bg={"brandOrange.500"}
+              color={"white"}
+              isLoading={isSubmitting}
+              type="submit"
+              isDisabled={!isValid}
+              pl={"4rem"}
+              pr={"4rem"}
+              borderRadius={"5rem"}
+              height={"3rem"}
+            >
+              検索
+            </Button>
+          </VStack>
+        </form>
+        <Box position="relative" padding="10" width={"100%"}>
+          <Divider
+            borderWidth={"1px"}
+            borderColor={" rgba(105, 145, 172, 1)"}
+          />
+          <AbsoluteCenter bg="white" px="4" width={"5rem"}>
+            または
+          </AbsoluteCenter>
+        </Box>
+        <Button
+          mt={4}
+          bg={"white"}
+          color={"brandOrange.500"}
+          borderWidth={"1px"}
+          borderColor={"brandOrange.500"}
+          pl={"4rem"}
+          pr={"4rem"}
+          borderRadius={"5rem"}
+          height={"3rem"}
+        >
+          新しいお客様の登録
+        </Button>
+      </VStack>
+    </Container>
   );
 };
 

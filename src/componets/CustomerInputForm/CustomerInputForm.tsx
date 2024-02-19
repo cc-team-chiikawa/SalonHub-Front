@@ -25,11 +25,19 @@ import {
   Grid,
   GridItem,
 } from "@chakra-ui/react";
-import { useEffect, useMemo, useState, FC } from "react";
+import { useEffect, useMemo, useState, FC, PropsWithChildren } from "react";
 import { useParams } from "react-router-dom";
-import { customer } from "../../types/customer";
+import {
+  customer,
+  getGenderText,
+  getHairAmountText,
+  getHairHardnessText,
+  getHairThicknessText,
+} from "../../types/customer";
 import { createApi } from "@/apis/createApi";
 import { formatDate } from "@/utils/utils";
+import { Slider, SliderWithText } from "../Slider";
+import { WomanIcon } from "../../icons/index";
 
 type props = {
   customer: customer;
@@ -37,51 +45,94 @@ type props = {
 
 export const CustomerInputForm: FC<props> = ({ customer }) => {
   return (
-    <Accordion allowMultiple>
+    <Accordion
+      allowMultiple
+      width={"100%"}
+      bg={"brandGray.0"}
+      p={"1rem"}
+      borderRadius={"1rem"}
+    >
       <AccordionItem>
         <h2>
-          <AccordionButton>
-            <Box as="span" flex="1" textAlign="left">
-              ご登録の内容
-            </Box>
+          <AccordionButton pl={0}>
+            <HStack as="span" flex="1" textAlign="left">
+              <WomanIcon />
+              <Text>ご登録の内容</Text>
+            </HStack>
             <AccordionIcon />
           </AccordionButton>
         </h2>
         <AccordionPanel pb={4}>
           <Grid
-            templateRows="repeat(5, 1fr)"
+            templateRows="repeat(7, 1fr)"
             templateColumns="repeat(2, 1fr)"
             gap={4}
           >
             <GridItem rowSpan={1} colSpan={1}>
-              <LabeledText title={"会員番号"} value={customer.cardNumber} />
+              <LabeledText
+                labelText={"会員番号"}
+                value={customer.card_number}
+              />
             </GridItem>
             <GridItem rowSpan={1} colSpan={1}>
               <LabeledText
-                title={"生年月日"}
+                labelText={"生年月日"}
                 value={formatDate(customer.birthday)}
               />
             </GridItem>
             <GridItem rowSpan={1} colSpan={1}>
-              <LabeledText title={"性別"} value={customer.gender} />
+              <LabeledText
+                labelText={"性別"}
+                value={getGenderText(customer.gender)}
+              />
             </GridItem>
             <GridItem rowSpan={1} colSpan={1}>
-              <LabeledText title={"電話番号"} value={customer.phoneNumber} />
+              <LabeledText
+                labelText={"電話番号"}
+                value={customer.phone_number}
+              />
             </GridItem>
             <GridItem rowSpan={1} colSpan={1}>
-              <LabeledText title={"メールアドレス"} value={customer.address} />
+              <LabeledText
+                labelText={"メールアドレス"}
+                value={customer.adress}
+              />
             </GridItem>
-            <GridItem rowSpan={1} colSpan={1}>
-              <LabeledText title={"髪の太さ"} value={customer.hairThickness} />
+            <GridItem rowSpan={1} colSpan={2}>
+              <LabeledComponent labelText="髪の太さ">
+                <SliderWithText
+                  value={customer.hair_thickness}
+                  onChange={() => {}}
+                  isReadOnly={true}
+                  valueToText={getHairThicknessText}
+                />
+              </LabeledComponent>
             </GridItem>
-            <GridItem rowSpan={1} colSpan={1}>
-              <LabeledText title={"髪の硬さ"} value={customer.hairHardness} />
+            <GridItem rowSpan={1} colSpan={2}>
+              <LabeledComponent labelText="髪の硬さ">
+                <SliderWithText
+                  value={customer.hair_hardness}
+                  onChange={() => {}}
+                  isReadOnly={true}
+                  valueToText={getHairHardnessText}
+                />
+              </LabeledComponent>
             </GridItem>
-            <GridItem rowSpan={1} colSpan={1}>
-              <LabeledText title={"髪の量"} value={customer.hairAmount} />
+            <GridItem rowSpan={1} colSpan={2}>
+              <LabeledComponent labelText="髪の量">
+                <SliderWithText
+                  value={customer.hair_amount}
+                  onChange={() => {}}
+                  isReadOnly={true}
+                  valueToText={getHairAmountText}
+                />
+              </LabeledComponent>
             </GridItem>
-            <GridItem rowSpan={1} colSpan={1}>
-              <LabeledText title={"アレルギー"} value={customer.allergy} />
+            <GridItem rowSpan={1} colSpan={2}>
+              <LabeledText
+                labelText={"アレルギー"}
+                value={customer.allergy ?? "なし"}
+              />
             </GridItem>
           </Grid>
         </AccordionPanel>
@@ -93,137 +144,30 @@ export const CustomerInputForm: FC<props> = ({ customer }) => {
 export default CustomerInputForm;
 
 type LabeledTextProps = {
-  title: string;
+  labelText: string;
   value: string;
 };
 
-const LabeledText: FC<LabeledTextProps> = ({ title, value }) => {
+const LabeledText: FC<LabeledTextProps> = ({ labelText, value }) => {
   return (
-    <VStack align={"start"}>
-      <Text>{title}</Text>
-      <Text pl={5}>{value}</Text>
-    </VStack>
+    <LabeledComponent labelText={labelText}>
+      <Text>{value}</Text>
+    </LabeledComponent>
   );
 };
 
-{
-  /* <Accordion defaultIndex={[0]} allowMultiple>
-<AccordionItem>
-  <h2>
-    <AccordionButton>
-      <Box as="span" flex="1" textAlign="left">
-        登録内容
-      </Box>
-      <AccordionIcon />
-    </AccordionButton>
-  </h2>
-  <AccordionPanel pb={4}>
-    <FormControl isReadOnly>
-      <InputGroup>
-        <InputLeftAddon>ID</InputLeftAddon>
-        <Input type="text" value={customer?.id} />
-      </InputGroup>
-      <InputGroup>
-        <InputLeftAddon>番号</InputLeftAddon>
-        <Input type="text" value={customer?.cardNumber} />
-      </InputGroup>
-      <InputGroup>
-        <InputLeftAddon>生年月日</InputLeftAddon>
-        <Input type="text" value={customer?.birthday} />
-      </InputGroup>
-      <InputGroup>
-        <InputLeftAddon>性別</InputLeftAddon>
-        <Input type="text" value={customer?.gender} />
-      </InputGroup>
-      <InputGroup>
-        <InputLeftAddon>電話番号</InputLeftAddon>
-        <Input type="text" value={customer?.phoneNumber} />
-      </InputGroup>
-      <InputGroup>
-        <InputLeftAddon>住所</InputLeftAddon>
-        <Input type="text" value={customer?.address} />
-      </InputGroup>
-      <InputGroup>
-        <InputLeftAddon>髪の太さ</InputLeftAddon>
-        <Input type="text" value={customer?.hairThickness} />
-      </InputGroup>
-      <InputGroup>
-        <InputLeftAddon>髪の硬さ</InputLeftAddon>
-        <Input type="text" value={customer?.hairHardness} />
-      </InputGroup>
-      <InputGroup>
-        <InputLeftAddon>髪の量</InputLeftAddon>
-        <Input type="text" value={customer?.hairAmount} />
-      </InputGroup>
-      <InputGroup>
-        <InputLeftAddon>アレルギー</InputLeftAddon>
-        <Input type="text" value={customer?.allergy} />
-      </InputGroup>
-      <InputGroup>
-        <InputLeftAddon>メモ1</InputLeftAddon>
-        <Input type="text" value={customer?.memo1} />
-      </InputGroup>
-      <InputGroup>
-        <InputLeftAddon>メモ2</InputLeftAddon>
-        <Input type="text" value={customer?.memo2} />
-      </InputGroup>
-      <InputGroup>
-        <InputLeftAddon>メモ3</InputLeftAddon>
-        <Input type="text" value={customer?.memo3} />
-      </InputGroup>
-      <InputGroup>
-        <InputLeftAddon>メモ4</InputLeftAddon>
-        <Input type="text" value={customer?.memo4} />
-      </InputGroup>
-      <InputGroup>
-        <InputLeftAddon>メモ5</InputLeftAddon>
-        <Input type="text" value={customer?.memo5} />
-      </InputGroup>
-    </FormControl>
-  </AccordionPanel>
-</AccordionItem>
-<AccordionItem>
-  <h2>
-    <AccordionButton>
-      <Box as="span" flex="1" textAlign="left">
-        施術内容
-      </Box>
-      <AccordionIcon />
-    </AccordionButton>
-  </h2>
-  <AccordionPanel pb={4}>
-    <Tabs>
-      <TabList overflowX={"auto"}>
-        <Tab>2024/02/14</Tab>
-        <Tab>2024/02/15</Tab>
-        <Tab>2024/02/16</Tab>
-        <Tab>2024/02/17</Tab>
-        <Tab>2024/02/18</Tab>
-        <Tab>2024/02/19</Tab>
-      </TabList>
+type LabeledComponentProps = {
+  labelText: string;
+};
 
-      <TabPanels>
-        <TabPanel>
-          <p>one!</p>
-        </TabPanel>
-        <TabPanel>
-          <p>two!</p>
-        </TabPanel>
-        <TabPanel>
-          <p>three!</p>
-        </TabPanel>
-        <TabPanel>
-          <p>three!</p>
-        </TabPanel>
-        <TabPanel>
-          <p>three!</p>
-        </TabPanel>
-        <TabPanel>
-          <p>three!</p>
-        </TabPanel>
-      </TabPanels>
-    </Tabs>
-  </AccordionPanel>
-</AccordionItem>
-</Accordion> */
-}
+const LabeledComponent: FC<PropsWithChildren<LabeledComponentProps>> = ({
+  labelText,
+  children,
+}) => {
+  return (
+    <VStack align={"start"}>
+      <Text>{labelText}</Text>
+      <Box pl={5}>{children}</Box>
+    </VStack>
+  );
+};

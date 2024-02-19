@@ -2,8 +2,26 @@ import { karte } from "@/types/karte";
 
 export const getKarte = async (id: string) => {
   const data = await fetch(`/api/kartes/${id}`);
-  const kartes = await data.json();
-  return kartes as karte;
+  const karte = await data.json();
+
+  // 日付を Date オブジェクトに変換
+  if (karte.treatmentDay) {
+    karte.treatmentDay = new Date(karte.treatmentDay);
+  }
+
+  if (karte.treatmented) {
+    karte.treatmentedMenuIds = karte.treatmented.map(
+      (menu: { id: string }) => `${menu.id}` // TODO: 要調査
+    );
+  }
+
+  if (karte.interesting) {
+    karte.interestingMenuIds = karte.interesting.map(
+      (menu: { id: string }) => `${menu.id}`
+    );
+  }
+
+  return karte as karte;
 };
 
 export const postKarte = async (newKarte: karte) => {
@@ -20,6 +38,12 @@ export const postKarte = async (newKarte: karte) => {
   }
 
   const karte = await response.json();
+
+  // 日付を Date オブジェクトに変換
+  if (karte.treatmentDay) {
+    karte.treatmentDay = new Date(karte.treatmentDay);
+  }
+
   return karte as karte;
 };
 
@@ -37,5 +61,11 @@ export const patchKarte = async (id: string, updatedKarte: karte) => {
   }
 
   const karte = await response.json();
+
+  // 日付を Date オブジェクトに変換
+  if (karte.treatmentDay) {
+    karte.treatmentDay = new Date(karte.treatmentDay);
+  }
+
   return karte as karte;
 };

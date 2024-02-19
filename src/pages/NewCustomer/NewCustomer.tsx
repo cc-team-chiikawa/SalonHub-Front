@@ -66,7 +66,7 @@ export const NewCustomer: FC = () => {
               </InputGroup>
               <InputGroup>
                 <InputLeftAddon>番号</InputLeftAddon>
-                <Input type="text" value={customer?.cardNumber} />
+                <Input type="text" value={customer?.card_number} />
               </InputGroup>
               <InputGroup>
                 <InputLeftAddon>生年月日</InputLeftAddon>
@@ -78,23 +78,23 @@ export const NewCustomer: FC = () => {
               </InputGroup>
               <InputGroup>
                 <InputLeftAddon>電話番号</InputLeftAddon>
-                <Input type="text" value={customer?.phoneNumber} />
+                <Input type="text" value={customer?.phone_number} />
               </InputGroup>
               <InputGroup>
                 <InputLeftAddon>住所</InputLeftAddon>
-                <Input type="text" value={customer?.address} />
+                <Input type="text" value={customer?.adress} />
               </InputGroup>
               <InputGroup>
                 <InputLeftAddon>髪の太さ</InputLeftAddon>
-                <Input type="text" value={customer?.hairThickness} />
+                <Input type="text" value={customer?.hair_thickness} />
               </InputGroup>
               <InputGroup>
                 <InputLeftAddon>髪の硬さ</InputLeftAddon>
-                <Input type="text" value={customer?.hairHardness} />
+                <Input type="text" value={customer?.hair_hardness} />
               </InputGroup>
               <InputGroup>
                 <InputLeftAddon>髪の量</InputLeftAddon>
-                <Input type="text" value={customer?.hairAmount} />
+                <Input type="text" value={customer?.hair_amount} />
               </InputGroup>
               <InputGroup>
                 <InputLeftAddon>アレルギー</InputLeftAddon>

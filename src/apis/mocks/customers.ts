@@ -2,7 +2,7 @@ import { loginInformation } from "@/types";
 import { customer } from "@/types/customer";
 
 export const loginMock = async (loginInformation: loginInformation) => {
-  return customers[0].id;
+  return { id: customers[0].id };
 };
 
 export const getCustomerMock = async (id: string) => {
@@ -27,16 +27,16 @@ export const patchCustomerMock = async (
 const customers: customer[] = [
   {
     id: "1",
-    cardNumber: "1234567890",
+    card_number: "1234567890",
     birthday: new Date(),
-    name: "高橋 朱美",
-    kana: "タカハシ アケミ",
-    gender: "女性",
-    phoneNumber: "090-1234-5678",
-    address: "testuser@example.com",
-    hairThickness: "太い",
-    hairHardness: "硬い",
-    hairAmount: "多い",
+    name: "ハチワレ",
+    kana: "ハチワレ",
+    gender: "1",
+    phone_number: "090-1234-5678",
+    adress: "testuser@example.com",
+    hair_thickness: 3,
+    hair_hardness: 3,
+    hair_amount: 5,
     allergy: "化学薬品、そば粉、アルコール、タマゴ、エビ",
     memo1: "メモ1",
     memo2: "メモ2",
@@ -50,16 +50,16 @@ const customers: customer[] = [
   },
   {
     id: "2",
-    cardNumber: "1234567890",
+    card_number: "1234567890",
     birthday: new Date(),
     name: "高橋 朱美2",
     kana: "タカハシ アケミ",
-    gender: "女性",
-    phoneNumber: "090-1234-5678",
-    address: "testuser@example.com",
-    hairThickness: "太い",
-    hairHardness: "硬い",
-    hairAmount: "多い",
+    gender: "2",
+    phone_number: "090-1234-5678",
+    adress: "testuser@example.com",
+    hair_thickness: 3,
+    hair_hardness: 3,
+    hair_amount: 5,
     allergy: "なし",
     memo1: "メモ1",
     memo2: "メモ2",

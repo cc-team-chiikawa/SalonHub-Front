@@ -25,7 +25,6 @@ import {
   Grid,
   GridItem,
   Button,
-  Switch,
   Spacer,
   Image,
   Center,
@@ -34,6 +33,7 @@ import {
   Checkbox,
   ListItem,
   UnorderedList,
+  Flex,
 } from "@chakra-ui/react";
 import { useEffect, useMemo, useState, FC } from "react";
 import { useParams } from "react-router-dom";
@@ -45,6 +45,17 @@ import { stylist } from "../../types/stylist";
 import { AddIcon } from "@chakra-ui/icons";
 import { menu } from "@/types";
 import { useForm, FormProvider, useFormContext } from "react-hook-form";
+import {
+  CircleAddIcon,
+  CircleAddIconGray,
+  KarteIcon,
+  OrangeTriangle,
+} from "@/icons";
+import Switch from "react-switch";
+import frontImg from "@/assets/chukan/front.jpg";
+import backImg from "@/assets/chukan/back.jpg";
+import rightImg from "@/assets/chukan/right.jpg";
+import leftImg from "@/assets/chukan/left.jpg";
 
 type props = {
   karteHeaders: karteHeader[];
@@ -105,26 +116,57 @@ export const KartesList: FC<props> = ({ karteHeaders }) => {
     alert("カルテの新規作成！");
   };
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.checked) {
+  const onChange = (checked: boolean) => {
+    if (!checked) {
       methods.handleSubmit((data) => console.log(data))();
       // TODO: karte取得
     }
 
-    setIsEditMode(e.target.checked);
+    setIsEditMode(checked);
   };
+  console.log("karte", karte);
+  console.log("menus", menus);
 
   return (
     karte &&
     stylist &&
     stylists &&
     menus && (
-      <Grid templateRows="3rem 1fr" templateColumns="1fr" gap={4}>
+      <Grid
+        templateRows="3rem 1fr"
+        templateColumns="1fr"
+        gap={4}
+        width={"100%"}
+        bg={"brandGray.0"}
+        borderRadius={"1rem"}
+        p={"1rem"}
+      >
         <GridItem rowSpan={1} colSpan={1}>
           <HStack w={"100%"}>
-            <Text>あなたのカルテ</Text>
+            <HStack>
+              <KarteIcon />
+              <Text>あなたのカルテ</Text>
+            </HStack>
             <Spacer />
-            <Switch isChecked={isEditMode} onChange={onChange} />
+            <Switch
+              checked={isEditMode}
+              onChange={onChange}
+              onColor="#ffa500"
+              offColor="#d9d9d9"
+              uncheckedIcon={
+                <Center height={"100%"} pr={"5px"}>
+                  <Text fontSize={"0.75rem"}>閲覧用</Text>
+                </Center>
+              }
+              checkedIcon={
+                <Center height={"100%"} pl={"5px"}>
+                  <Text color="white" fontSize={"0.75rem"}>
+                    入力中
+                  </Text>
+                </Center>
+              }
+              width={75}
+            />
           </HStack>
         </GridItem>
         <GridItem rowSpan={1} colSpan={1}>
@@ -132,6 +174,7 @@ export const KartesList: FC<props> = ({ karteHeaders }) => {
             <GridItem rowSpan={1} colSpan={1}>
               <SideMenu
                 karteHeaders={karteHeaders}
+                selectedKarteId={selectedKarteId}
                 onClickTab={onClickTab}
                 onClickNewKarteButton={onClickNewKarteButton}
               />
@@ -151,7 +194,7 @@ export const KartesList: FC<props> = ({ karteHeaders }) => {
                     ...karte,
                     stylist,
                     treatmentedMenus: karte.treatmentedMenuIds.map(
-                      (id) => menus.find((menu) => menu.id === id)!
+                      (id) => menus.find((menu) => menu.id == id)! // TODO:idの型
                     ),
                   }}
                 />
@@ -185,44 +228,36 @@ type KarteFormProps = {
 };
 
 const ViewModeKarteForm: FC<KarteFormProps> = ({ karte }) => {
+  console.log(karte);
   return (
     <VStack align={"start"} gap={4}>
       <VStack align={"start"}>
-        <Text>{"施術後の写真"}</Text>
+        <TextWithOrangeTriangle text={"施術後の写真"} />
         <Grid ml={5} templateRows="1fr 1fr" templateColumns="1fr 1fr" gap={4}>
           <GridItem rowSpan={1} colSpan={1}>
-            <Image
-              boxSize="100px"
-              src="https://picsum.photos/100?random=1"
-              alt="Dan Abramov"
-            />
+            <Image boxSize="8rem" src={frontImg} alt="" />
           </GridItem>
           <GridItem rowSpan={1} colSpan={1}>
-            <Image
-              boxSize="100px"
-              src="https://picsum.photos/100?random=2"
-              alt="Dan Abramov"
-            />
+            <Image boxSize="8rem" src={backImg} alt="" />
           </GridItem>
           <GridItem rowSpan={1} colSpan={1}>
-            <Image
-              boxSize="100px"
-              src="https://picsum.photos/100?random=3"
-              alt="Dan Abramov"
-            />
+            <Image boxSize="8rem" src={rightImg} alt="" />
+          </GridItem>
+          <GridItem rowSpan={1} colSpan={1}>
+            <Image boxSize="8rem" src={leftImg} alt="" />
           </GridItem>
         </Grid>
       </VStack>
       <VStack align={"start"}>
-        <Text>{"担当した美容師"}</Text>
+        <TextWithOrangeTriangle text={"担当した美容師"} />
         <Text ml={5}>{karte.stylist.name}</Text>
       </VStack>
       <VStack align={"start"}>
-        <Text>{"施術前の要望"}</Text>
+        <TextWithOrangeTriangle text={"施術前の要望"} />
         <Text ml={5}>{karte.order}</Text>
       </VStack>
       <VStack align={"start"}>
-        <Text>{"施術前の要望"}</Text>
+        <TextWithOrangeTriangle text={"実際の施術内容"} />
         <UnorderedList pl={5}>
           {karte.treatmentedMenus.map((menu) => (
             <ListItem key={menu.id}>{menu.name}</ListItem>
@@ -230,7 +265,7 @@ const ViewModeKarteForm: FC<KarteFormProps> = ({ karte }) => {
         </UnorderedList>
       </VStack>
       <VStack align={"start"}>
-        <Text>{"施術時のメモ"}</Text>
+        <TextWithOrangeTriangle text={"施術時のメモ"} />
         <Text ml={5}>{karte.memo1}</Text>
       </VStack>
     </VStack>
@@ -248,46 +283,37 @@ const EditModeKarteForm: FC<EditModeKarteFormProps> = ({ stylists, menus }) => {
   return (
     <VStack align={"start"} gap={4}>
       <VStack align={"start"}>
-        <Text>{"施術後の写真"}</Text>
+        <TextWithOrangeTriangle text={"施術後の写真"} />
         <Grid ml={5} templateRows="1fr 1fr" templateColumns="1fr 1fr" gap={4}>
           <GridItem rowSpan={1} colSpan={1}>
-            <Image
-              boxSize="100px"
-              src="https://picsum.photos/100?random=1"
-              alt="Dan Abramov"
-            />
+            <Image boxSize="8rem" src={frontImg} alt="" />
           </GridItem>
           <GridItem rowSpan={1} colSpan={1}>
-            <Image
-              boxSize="100px"
-              src="https://picsum.photos/100?random=2"
-              alt="Dan Abramov"
-            />
+            <Image boxSize="8rem" src={backImg} alt="" />
           </GridItem>
           <GridItem rowSpan={1} colSpan={1}>
-            <Image
-              boxSize="100px"
-              src="https://picsum.photos/100?random=3"
-              alt="Dan Abramov"
-            />
+            <Image boxSize="8rem" src={rightImg} alt="" />
           </GridItem>
           <GridItem rowSpan={1} colSpan={1}>
+            <Image boxSize="8rem" src={leftImg} alt="" />
+          </GridItem>
+          {/* <GridItem rowSpan={1} colSpan={1}>
             <Box
-              backgroundColor={"gray"}
-              boxSize="100px"
+              backgroundColor={"#d9d9d9"}
+              boxSize="8rem"
               display={"flex"}
               justifyContent={"center"}
               alignItems={"center"}
             >
               <Center>
-                <AddIcon />
+                <CircleAddIconGray />
               </Center>
             </Box>
-          </GridItem>
+          </GridItem> */}
         </Grid>
       </VStack>
       <VStack align={"start"}>
-        <Text>{"担当した美容師"}</Text>
+        <TextWithOrangeTriangle text={"担当した美容師"} />
         <Select ml={5} {...register("stylistId")}>
           {stylists.map((stylist) => (
             <option key={stylist.id} value={stylist.id}>
@@ -296,8 +322,8 @@ const EditModeKarteForm: FC<EditModeKarteFormProps> = ({ stylists, menus }) => {
           ))}
         </Select>
       </VStack>
-      <VStack align={"start"}>
-        <Text>{"施術前の要望"}</Text>
+      <VStack align={"start"} w={"90%"}>
+        <TextWithOrangeTriangle text={"施術前の要望"} />
         <Textarea
           ml={5}
           placeholder="Here is a sample placeholder"
@@ -305,12 +331,13 @@ const EditModeKarteForm: FC<EditModeKarteFormProps> = ({ stylists, menus }) => {
         />
       </VStack>
       <VStack align={"start"}>
-        <Text>{"実際の施術内容"}</Text>
+        <TextWithOrangeTriangle text={"実際の施術内容"} />
         <VStack ml={5}>
           {menus.map((menu) => (
             <Checkbox
               key={menu.id}
               value={menu.id}
+              colorScheme="orange"
               {...register(`treatmentedMenuIds`)}
             >
               {menu.name}
@@ -318,8 +345,8 @@ const EditModeKarteForm: FC<EditModeKarteFormProps> = ({ stylists, menus }) => {
           ))}
         </VStack>
       </VStack>
-      <VStack align={"start"}>
-        <Text>{"施術時のメモ"}</Text>
+      <VStack align={"start"} w={"90%"}>
+        <TextWithOrangeTriangle text={"施術時のメモ"} />
         <Textarea
           ml={5}
           placeholder="Here is a sample placeholder"
@@ -332,21 +359,36 @@ const EditModeKarteForm: FC<EditModeKarteFormProps> = ({ stylists, menus }) => {
 
 type KarteTabProps = {
   karteHeaders: karteHeader[];
+  selectedKarteId: string;
   onClickTab: (selectedKarteId: string) => void;
 };
 
-const KarteTab: FC<KarteTabProps> = ({ karteHeaders, onClickTab }) => {
+const KarteTab: FC<KarteTabProps> = ({
+  karteHeaders,
+  selectedKarteId,
+  onClickTab,
+}) => {
   return (
-    <VStack>
+    <VStack width={"100%"} gap={0}>
       {karteHeaders.map((karteHeader) => (
-        <Text
+        <Flex
           key={karteHeader.id}
           onClick={() => {
             onClickTab(karteHeader.id);
           }}
+          width={"100%"}
+          height={"2.5rem"}
+          alignItems={"center"}
+          justifyContent={"center"}
+          borderRight={"2px solid"}
+          borderRightColor={
+            karteHeader.id === selectedKarteId
+              ? "brandOrange.500"
+              : "brandGray.500"
+          }
         >
-          {formatDate(karteHeader.treatmentDay)}
-        </Text>
+          <Text>{formatDate(karteHeader.treatmentDay)}</Text>
+        </Flex>
       ))}
     </VStack>
   );
@@ -354,146 +396,49 @@ const KarteTab: FC<KarteTabProps> = ({ karteHeaders, onClickTab }) => {
 
 type SideMenuProps = {
   karteHeaders: karteHeader[];
+  selectedKarteId: string;
   onClickTab: (selectedKarteId: string) => void;
   onClickNewKarteButton: () => void;
 };
 
 const SideMenu: FC<SideMenuProps> = ({
   karteHeaders,
+  selectedKarteId,
   onClickTab,
   onClickNewKarteButton,
 }) => {
   return (
-    <VStack>
-      <Button onClick={onClickNewKarteButton}>
+    <VStack
+      bg={"brandGray.500"}
+      borderTopLeftRadius={"1rem"}
+      borderBottomLeftRadius={"1rem"}
+    >
+      <Button onClick={onClickNewKarteButton} bg={"brandGray.500"}>
         <HStack>
-          <Text>カルテを作る</Text>
-          <AddIcon />
+          <Text color={"brandGreen.500"} textDecoration={"underline"}>
+            カルテを作る
+          </Text>
+          <CircleAddIcon />
         </HStack>
       </Button>
-      <KarteTab karteHeaders={karteHeaders} onClickTab={onClickTab} />
+      <KarteTab
+        karteHeaders={karteHeaders}
+        onClickTab={onClickTab}
+        selectedKarteId={selectedKarteId}
+      />
     </VStack>
   );
 };
 
-{
-  /* <Accordion defaultIndex={[0]} allowMultiple>
-<AccordionItem>
-  <h2>
-    <AccordionButton>
-      <Box as="span" flex="1" textAlign="left">
-        登録内容
-      </Box>
-      <AccordionIcon />
-    </AccordionButton>
-  </h2>
-  <AccordionPanel pb={4}>
-    <FormControl isReadOnly>
-      <InputGroup>
-        <InputLeftAddon>ID</InputLeftAddon>
-        <Input type="text" value={customer?.id} />
-      </InputGroup>
-      <InputGroup>
-        <InputLeftAddon>番号</InputLeftAddon>
-        <Input type="text" value={customer?.cardNumber} />
-      </InputGroup>
-      <InputGroup>
-        <InputLeftAddon>生年月日</InputLeftAddon>
-        <Input type="text" value={customer?.birthday} />
-      </InputGroup>
-      <InputGroup>
-        <InputLeftAddon>性別</InputLeftAddon>
-        <Input type="text" value={customer?.gender} />
-      </InputGroup>
-      <InputGroup>
-        <InputLeftAddon>電話番号</InputLeftAddon>
-        <Input type="text" value={customer?.phoneNumber} />
-      </InputGroup>
-      <InputGroup>
-        <InputLeftAddon>住所</InputLeftAddon>
-        <Input type="text" value={customer?.address} />
-      </InputGroup>
-      <InputGroup>
-        <InputLeftAddon>髪の太さ</InputLeftAddon>
-        <Input type="text" value={customer?.hairThickness} />
-      </InputGroup>
-      <InputGroup>
-        <InputLeftAddon>髪の硬さ</InputLeftAddon>
-        <Input type="text" value={customer?.hairHardness} />
-      </InputGroup>
-      <InputGroup>
-        <InputLeftAddon>髪の量</InputLeftAddon>
-        <Input type="text" value={customer?.hairAmount} />
-      </InputGroup>
-      <InputGroup>
-        <InputLeftAddon>アレルギー</InputLeftAddon>
-        <Input type="text" value={customer?.allergy} />
-      </InputGroup>
-      <InputGroup>
-        <InputLeftAddon>メモ1</InputLeftAddon>
-        <Input type="text" value={customer?.memo1} />
-      </InputGroup>
-      <InputGroup>
-        <InputLeftAddon>メモ2</InputLeftAddon>
-        <Input type="text" value={customer?.memo2} />
-      </InputGroup>
-      <InputGroup>
-        <InputLeftAddon>メモ3</InputLeftAddon>
-        <Input type="text" value={customer?.memo3} />
-      </InputGroup>
-      <InputGroup>
-        <InputLeftAddon>メモ4</InputLeftAddon>
-        <Input type="text" value={customer?.memo4} />
-      </InputGroup>
-      <InputGroup>
-        <InputLeftAddon>メモ5</InputLeftAddon>
-        <Input type="text" value={customer?.memo5} />
-      </InputGroup>
-    </FormControl>
-  </AccordionPanel>
-</AccordionItem>
-<AccordionItem>
-  <h2>
-    <AccordionButton>
-      <Box as="span" flex="1" textAlign="left">
-        施術内容
-      </Box>
-      <AccordionIcon />
-    </AccordionButton>
-  </h2>
-  <AccordionPanel pb={4}>
-    <Tabs>
-      <TabList overflowX={"auto"}>
-        <Tab>2024/02/14</Tab>
-        <Tab>2024/02/15</Tab>
-        <Tab>2024/02/16</Tab>
-        <Tab>2024/02/17</Tab>
-        <Tab>2024/02/18</Tab>
-        <Tab>2024/02/19</Tab>
-      </TabList>
+type TextWithOrangeTriangleProps = {
+  text: string;
+};
 
-      <TabPanels>
-        <TabPanel>
-          <p>one!</p>
-        </TabPanel>
-        <TabPanel>
-          <p>two!</p>
-        </TabPanel>
-        <TabPanel>
-          <p>three!</p>
-        </TabPanel>
-        <TabPanel>
-          <p>three!</p>
-        </TabPanel>
-        <TabPanel>
-          <p>three!</p>
-        </TabPanel>
-        <TabPanel>
-          <p>three!</p>
-        </TabPanel>
-      </TabPanels>
-    </Tabs>
-  </AccordionPanel>
-</AccordionItem>
-</Accordion> */
-}
+const TextWithOrangeTriangle: FC<TextWithOrangeTriangleProps> = ({ text }) => {
+  return (
+    <HStack>
+      <OrangeTriangle />
+      <Text>{text}</Text>
+    </HStack>
+  );
+};

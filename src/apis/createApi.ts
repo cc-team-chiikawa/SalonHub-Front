@@ -43,11 +43,11 @@ const api = {
     patchKarte,
   },
   menu: {
-    getMenus,
+    getMenus: getMenusMock,
   },
   stylist: {
-    getStylist,
-    getStylists,
+    getStylist: getStylistMock,
+    getStylists: getStylistsMock,
   },
 };
 
