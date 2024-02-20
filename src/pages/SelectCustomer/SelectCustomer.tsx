@@ -5,7 +5,7 @@ import {
   Container,
   Divider,
 } from "@chakra-ui/react";
-import { Heading, Box, Text } from "@chakra-ui/react";
+import { Heading, Box, Text, Link } from "@chakra-ui/react";
 import {
   Accordion,
   AccordionItem,
@@ -36,7 +36,7 @@ import { customer } from "@/types/customer";
 import { createApi } from "@/apis/createApi";
 import { useForm } from "react-hook-form";
 import { loginInformation } from "@/types";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link as ReactRouterLink } from "react-router-dom";
 
 export const SelectCustomer: FC = () => {
   const navigate = useNavigate();
@@ -62,7 +62,7 @@ export const SelectCustomer: FC = () => {
     <Container alignItems={"center"} pt={"10rem"}>
       <VStack gap={"2rem"}>
         <Text fontSize={"1.5rem"} fontWeight={"bold"}>
-          お客様検索
+          カルテ作成モードの選択
         </Text>
         <form onSubmit={handleSubmit(onSubmit)}>
           <VStack gap={"2rem"}>
@@ -96,32 +96,33 @@ export const SelectCustomer: FC = () => {
               borderRadius={"5rem"}
               height={"3rem"}
             >
-              検索
+              既存のお客様で作成
             </Button>
           </VStack>
         </form>
-        <Box position="relative" padding="10" width={"100%"}>
-          <Divider
-            borderWidth={"1px"}
-            borderColor={" rgba(105, 145, 172, 1)"}
-          />
-          <AbsoluteCenter bg="white" px="4" width={"5rem"}>
-            または
-          </AbsoluteCenter>
-        </Box>
-        <Button
-          mt={4}
-          bg={"white"}
-          color={"brandOrange.500"}
-          borderWidth={"1px"}
-          borderColor={"brandOrange.500"}
-          pl={"4rem"}
-          pr={"4rem"}
-          borderRadius={"5rem"}
-          height={"3rem"}
-        >
-          新しいお客様の登録
-        </Button>
+        <Link as={ReactRouterLink} to="/customers/new-karte">
+          <Box position="relative" padding="10" width={"100%"}>
+            <Divider
+              borderWidth={"1px"}
+              borderColor={" rgba(105, 145, 172, 1)"}
+            />
+            <AbsoluteCenter bg="white" px="4" width={"5rem"}>
+              または
+            </AbsoluteCenter>
+          </Box>
+          <Button
+            mt={4}
+            bg={"brandOrange.500"}
+            color={"white"}
+            type="submit"
+            pl={"4rem"}
+            pr={"4rem"}
+            borderRadius={"5rem"}
+            height={"3rem"}
+          >
+            新規のお客様で作成
+          </Button>
+        </Link>
       </VStack>
     </Container>
   );

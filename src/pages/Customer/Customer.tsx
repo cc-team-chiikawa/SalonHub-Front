@@ -1,4 +1,4 @@
-import { Container } from "@chakra-ui/react";
+import { Container, Button, Link } from "@chakra-ui/react";
 import { Heading, Box, Text } from "@chakra-ui/react";
 import {
   Accordion,
@@ -26,7 +26,7 @@ import {
   Tabs,
 } from "@chakra-ui/react";
 import { FC, useEffect, useMemo, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link as ReactRouterLink } from "react-router-dom";
 import { customer } from "../../types/customer";
 import { createApi } from "@/apis/createApi";
 import { CustomerInputForm } from "@/componets/CustomerInputForm";
@@ -35,37 +35,15 @@ import { karte } from "@/types";
 import MenuBar from "@/componets/MenuBar/MenuBar";
 import { Header } from "@/componets/Header";
 
-export const Customer: FC = () => {
-  const [customer, setCustomer] = useState<customer>();
-  const { id } = useParams<{ id: string }>();
-  const api = useMemo(() => createApi(), []);
-
-  useEffect(() => {
-    const getData = async () => {
-      const customer = await api.customer.getCustomer(id!);
-      setCustomer(customer);
-    };
-
-    getData();
-  }, [api, id]);
-
-  // TODO: user
-  // TODO: 灰色のばす
-
+const Customer = () => {
   return (
-    customer && (
-      <Container maxW="none" p={0} h={"100%"}>
-        <MenuBar />
-        <Container maxW="none" p={"2rem"} bg={"brandGray.500"} h={"100%"}>
-          <VStack alignItems={"start"} gap={"1rem"}>
-            <Header customer={customer} />
-            <CustomerInputForm customer={customer} />
-            <KartesList karteHeaders={customer.kartes} />
-          </VStack>
-        </Container>
-      </Container>
-    )
+    <Container alignItems={"center"} pt={"10rem"}>
+      <VStack gap={"2rem"}>
+        <Text fontSize={"1.5rem"} fontWeight={"bold"}>
+          Customer
+        </Text>
+      </VStack>
+    </Container>
   );
 };
-
 export default Customer;
