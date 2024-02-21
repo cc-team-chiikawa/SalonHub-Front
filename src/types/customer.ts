@@ -1,23 +1,21 @@
 export type customer = {
   id: string;
-  card_number: string;
-  birthday: Date;
+  card_number?: string;
+  birthday?: Date;
   name: string;
-  kana: string;
-  gender: string;
-  phone_number: string;
-  adress: string;
-  hair_thickness: number;
-  hair_hardness: number;
-  hair_amount: number;
+  kana?: string;
+  gender?: string;
+  phone_number?: string;
+  adress?: string;
+  hair_thickness?: number;
+  hair_hardness?: number;
+  hair_amount?: number;
   allergy?: string;
-  memo1: string;
-  memo2: string;
-  memo3: string;
-  memo4: string;
-  memo5: string;
-
-  kartes: karteHeader[];
+  memo1?: string;
+  memo2?: string;
+  memo3?: string;
+  memo4?: string;
+  memo5?: string;
 };
 
 export type karteHeader = { id: string; treatmentDay: Date };
