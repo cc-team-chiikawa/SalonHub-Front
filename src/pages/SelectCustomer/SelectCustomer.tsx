@@ -63,8 +63,7 @@ export const SelectCustomer: FC = () => {
   return (
     <Container maxW="none" p={0} h={"100%"}>
       <MenuBar />
-      <Header customer="TODO 表示するだけの仮の値" />
-      <Container alignItems={"center"} pt={"10rem"}>
+      <Container maxW="none" p={"2rem"} bg={"brandGray.500"} h={"100%"}>
         <VStack gap={"2rem"}>
           <Text fontSize={"1.5rem"} fontWeight={"bold"}>
             カルテ作成モードの選択
