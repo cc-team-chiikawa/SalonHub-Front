@@ -144,60 +144,49 @@ export const NewKarte: FC = () => {
             </h2>
             <AccordionPanel pb={4}>
               <InputGroup>
-                <InputLeftAddon>髪の太さ</InputLeftAddon>
-                <Select>
-                  <option value="指定なし">指定なし</option>
-                  <option value="とても細い">とても細い</option>
-                  <option value="やや細い">やや細い</option>
-                  <option value="普通">普通</option>
-                  <option value="やや太い">やや太い</option>
-                  <option value="とても太い">とても太い</option>
-                </Select>
-              </InputGroup>
-              <InputGroup>
-                <InputLeftAddon>髪の硬さ</InputLeftAddon>
-                <Select>
-                  <option value="指定なし">指定なし</option>
-                  <option value="とても柔らかい">とても柔らかい</option>
-                  <option value="やや柔らかい">やや柔らかい</option>
-                  <option value="普通">普通</option>
-                  <option value="やや硬い">やや硬い</option>
-                  <option value="とても硬い">とても硬い</option>
-                </Select>
-              </InputGroup>
-              <InputGroup>
                 <InputLeftAddon>髪の量</InputLeftAddon>
                 <Select>
                   <option value="指定なし">指定なし</option>
-                  <option value="とても少ない">とても少ない</option>
-                  <option value="やや少ない">やや少ない</option>
+                  <option value="少ない">少ない</option>
                   <option value="普通">普通</option>
-                  <option value="やや多い">やや多い</option>
-                  <option value="とても多い">とても多い</option>
+                  <option value="多い">多い</option>
                 </Select>
               </InputGroup>
               <InputGroup>
-                <InputLeftAddon>髪のクセ</InputLeftAddon>
+                <InputLeftAddon>髪質</InputLeftAddon>
                 <Select>
                   <option value="指定なし">指定なし</option>
-                  <option value="直毛">直毛</option>
-                  <option value="やや直毛">やや直毛</option>
+                  <option value="柔らかい">柔らかい</option>
                   <option value="普通">普通</option>
-                  <option value="ややクセ毛">ややクセ毛</option>
-                  <option value="クセ毛">クセ毛</option>
+                  <option value="硬い">硬い</option>
+                </Select>
+              </InputGroup>
+              <InputGroup>
+                <InputLeftAddon>太さ</InputLeftAddon>
+                <Select>
+                  <option value="指定なし">指定なし</option>
+                  <option value="細い">細い</option>
+                  <option value="普通">普通</option>
+                  <option value="太い">太い</option>
+                </Select>
+              </InputGroup>
+              <InputGroup>
+                <InputLeftAddon>クセ</InputLeftAddon>
+                <Select>
+                  <option value="指定なし">指定なし</option>
+                  <option value="少し">少し</option>
+                  <option value="強い">強い</option>
                 </Select>
               </InputGroup>
               <InputGroup>
                 <InputLeftAddon>顔の形</InputLeftAddon>
                 <Select>
                   <option value="指定なし">指定なし</option>
-                  <option value="卵型">卵型</option>
                   <option value="丸型">丸型</option>
-                  <option value="四角型">四角型</option>
-                  <option value="逆三角型">逆三角型</option>
-                  <option value="三角型">三角型</option>
-                  <option value="楕円型">楕円型</option>
-                  <option value="長方形">長方形</option>
+                  <option value="卵型">卵型</option>
+                  <option value="四角">四角</option>
+                  <option value="逆三角">逆三角</option>
+                  <option value="ベース">ベース</option>
                 </Select>
               </InputGroup>
               <InputGroup>
