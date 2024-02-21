@@ -35,20 +35,20 @@ import MenuBar from "@/componets/MenuBar/MenuBar";
 import { Header } from "@/componets/Header";
 import { MemberInformation } from "@/componets/MemberInformation";
 import { KarteInformation } from "@/componets/KarteInformation";
+import { useMyContext } from "@/MyContext";
 
 export const Customer: FC = () => {
   const [customer, setCustomer] = useState<customer>();
-  const { id } = useParams<{ id: string }>();
-  const api = useMemo(() => createApi(), []);
+  const context = useMyContext();
 
   useEffect(() => {
     const getData = async () => {
-      const customer = await api.customer.getCustomer(id!);
+      const customer = context.customerDetail;
       setCustomer(customer);
     };
 
     getData();
-  }, [api, id]);
+  }, []);
 
   // TODO: user
   // TODO: 灰色のばす
@@ -62,7 +62,7 @@ export const Customer: FC = () => {
             <Header customer={customer} />
             <MemberInformation customer={customer} />
             <KarteInformation customer={customer} />
-            <HistoryInformation karteHeaders={customer.kartes} />
+            <HistoryInformation customer={customer} />
           </VStack>
         </Container>
       </Container>

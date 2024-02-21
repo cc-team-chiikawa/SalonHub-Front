@@ -57,7 +57,7 @@ const MainMenu = () => {
               お客様
             </Button>
           </Link>
-          <Link as={ReactRouterLink} to="/stylist/customers/List">
+          <Link as={ReactRouterLink} to="/stylist/list">
             <Button
               mt={4}
               bg={"brandOrange.500"}
