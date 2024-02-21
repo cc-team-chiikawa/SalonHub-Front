@@ -59,7 +59,7 @@ const Sent = () => {
       <VStack
         gap={"2rem"}
         alignItems={"left"}
-        marginLeft={"5rem"}
+        marginLeft={"4rem"}
         marginTop={"12rem"}
         css={{
           animation: `${fadeInFromLeftAnimation} 1s ease-out forwards`,
@@ -85,7 +85,7 @@ const Sent = () => {
       <Box //女性の絵
         position="absolute"
         top={"13rem"} // ここを調整して要素を下に移動させます
-        left={"4.5rem"}
+        left={"3rem"}
         width="100%"
         height="300%" // Change the height to "100%" to fit the image within the container
         style={{
