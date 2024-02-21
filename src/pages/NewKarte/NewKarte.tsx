@@ -53,6 +53,49 @@ export const NewKarte: FC = () => {
     getData();
   }, [api, id]);
 
+  function getInputValue() {
+    const card_number = document.getElementById("card_number") as HTMLInputElement;
+    const birthday = document.getElementById("birthday") as HTMLInputElement;
+    const gender = document.getElementById("gender") as HTMLInputElement;
+    const phone_number = document.getElementById("phone_number") as HTMLInputElement;
+    const email = document.getElementById("email") as HTMLInputElement;
+    const adress = document.getElementById("adress") as HTMLInputElement;
+    const hair_volume = document.getElementById("hair_volume") as HTMLInputElement;
+    const hair_type = document.getElementById("hair_type") as HTMLInputElement;
+    const hair_thickness = document.getElementById("hair_thickness") as HTMLInputElement;
+    const hair_curly = document.getElementById("hair_curly") as HTMLInputElement;
+    const face_shape = document.getElementById("face_shape") as HTMLInputElement;
+    const scalp_condition = document.getElementById("scalp_condition") as HTMLInputElement;
+    const allergy = document.getElementById("allergy") as HTMLInputElement;
+    const hair_length = document.getElementById("hair_length") as HTMLInputElement;
+    const hair_color = document.getElementById("hair_color") as HTMLInputElement;
+    const hair_parm = document.getElementById("hair_parm") as HTMLInputElement;
+
+    //objectにセット
+    let customer = {
+      card_number : card_number.value,
+      birthday : birthday.value,
+      gender : gender.value,
+      phone_number : phone_number.value,
+      email : email.value,
+      adress : adress.value,
+    }
+    let karte = {
+      hair_volume : hair_volume.value,
+      hair_type : hair_type.value,
+      hair_thickness : hair_thickness.value,
+      hair_curly : hair_curly.value,
+      face_shape : face_shape.value,
+      scalp_condition : scalp_condition.value,
+      allergy : allergy.value,
+    }
+    let todays_cut = {
+      hair_length : hair_length.value,
+      hair_color :  hair_color.value,
+      perm : hair_parm.value,
+    }
+  }
+
   return (
     <Container alignItems={"center"} pt={"10rem"}>
       <VStack gap={"2rem"}>
@@ -79,16 +122,25 @@ export const NewKarte: FC = () => {
 
               <InputGroup>
                 <InputLeftAddon>会員番号</InputLeftAddon>
-                <Input type="number" isReadOnly value={customer?.card_number} />
+                <Input
+                  type="number"
+                  isReadOnly
+                  value={customer?.card_number}
+                  id="card_number"
+                />
               </InputGroup>
               <InputGroup>
                 <InputLeftAddon>生年月日</InputLeftAddon>
-                <Input type="date" value={customer?.birthday} />
+                <Input
+                  type="date"
+                  value={customer?.birthday?.toISOString().split("T")[0]}
+                  id="birthday"
+                />
               </InputGroup>
               <InputGroup>
                 <InputLeftAddon>性別</InputLeftAddon>
                 <InputGroup>
-                  <Select>
+                  <Select id="gender">
                     <option value="指定なし">指定なし</option>
                     <option value="男性">男性</option>
                     <option value="女性">女性</option>
@@ -101,15 +153,16 @@ export const NewKarte: FC = () => {
                   type="tel"
                   value={customer?.phone_number}
                   placeholder="090-1234-5678"
+                  id="phone_number"
                 />
               </InputGroup>
               <InputGroup>
                 <InputLeftAddon>メールアドレス</InputLeftAddon>
-                <Input type="email" value={customer?.email} />
+                <Input type="email" value={customer?.email} id="email" />
               </InputGroup>
               <InputGroup>
                 <InputLeftAddon>住所</InputLeftAddon>
-                <Input type="text" value={customer?.adress} />
+                <Input type="text" value={customer?.adress} id="adress" />
               </InputGroup>
               {/* <InputGroup>
               <InputLeftAddon>メモ1</InputLeftAddon>
@@ -144,65 +197,54 @@ export const NewKarte: FC = () => {
             </h2>
             <AccordionPanel pb={4}>
               <InputGroup>
-                <InputLeftAddon>髪の太さ</InputLeftAddon>
-                <Select>
-                  <option value="指定なし">指定なし</option>
-                  <option value="とても細い">とても細い</option>
-                  <option value="やや細い">やや細い</option>
-                  <option value="普通">普通</option>
-                  <option value="やや太い">やや太い</option>
-                  <option value="とても太い">とても太い</option>
-                </Select>
-              </InputGroup>
-              <InputGroup>
-                <InputLeftAddon>髪の硬さ</InputLeftAddon>
-                <Select>
-                  <option value="指定なし">指定なし</option>
-                  <option value="とても柔らかい">とても柔らかい</option>
-                  <option value="やや柔らかい">やや柔らかい</option>
-                  <option value="普通">普通</option>
-                  <option value="やや硬い">やや硬い</option>
-                  <option value="とても硬い">とても硬い</option>
-                </Select>
-              </InputGroup>
-              <InputGroup>
                 <InputLeftAddon>髪の量</InputLeftAddon>
-                <Select>
+                <Select id="hair_volume">
                   <option value="指定なし">指定なし</option>
-                  <option value="とても少ない">とても少ない</option>
-                  <option value="やや少ない">やや少ない</option>
+                  <option value="少ない">少ない</option>
                   <option value="普通">普通</option>
-                  <option value="やや多い">やや多い</option>
-                  <option value="とても多い">とても多い</option>
+                  <option value="多い">多い</option>
                 </Select>
               </InputGroup>
               <InputGroup>
-                <InputLeftAddon>髪のクセ</InputLeftAddon>
-                <Select>
+                <InputLeftAddon>髪質</InputLeftAddon>
+                <Select id="hair_type">
                   <option value="指定なし">指定なし</option>
-                  <option value="直毛">直毛</option>
-                  <option value="やや直毛">やや直毛</option>
+                  <option value="柔らかい">柔らかい</option>
                   <option value="普通">普通</option>
-                  <option value="ややクセ毛">ややクセ毛</option>
-                  <option value="クセ毛">クセ毛</option>
+                  <option value="硬い">硬い</option>
+                </Select>
+              </InputGroup>
+              <InputGroup>
+                <InputLeftAddon>太さ</InputLeftAddon>
+                <Select id="hair_thickness">
+                  <option value="指定なし">指定なし</option>
+                  <option value="細い">細い</option>
+                  <option value="普通">普通</option>
+                  <option value="太い">太い</option>
+                </Select>
+              </InputGroup>
+              <InputGroup>
+                <InputLeftAddon>クセ</InputLeftAddon>
+                <Select id="hair_curly">
+                  <option value="指定なし">指定なし</option>
+                  <option value="少し">少し</option>
+                  <option value="強い">強い</option>
                 </Select>
               </InputGroup>
               <InputGroup>
                 <InputLeftAddon>顔の形</InputLeftAddon>
-                <Select>
+                <Select id="face_shape">
                   <option value="指定なし">指定なし</option>
-                  <option value="卵型">卵型</option>
                   <option value="丸型">丸型</option>
-                  <option value="四角型">四角型</option>
-                  <option value="逆三角型">逆三角型</option>
-                  <option value="三角型">三角型</option>
-                  <option value="楕円型">楕円型</option>
-                  <option value="長方形">長方形</option>
+                  <option value="卵型">卵型</option>
+                  <option value="四角">四角</option>
+                  <option value="逆三角">逆三角</option>
+                  <option value="ベース">ベース</option>
                 </Select>
               </InputGroup>
               <InputGroup>
                 <InputLeftAddon>頭皮の状態</InputLeftAddon>
-                <Select>
+                <Select id="scalp_condition">
                   <option value="指定なし">指定なし</option>
                   <option value="乾燥">乾燥</option>
                   <option value="普通">普通</option>
@@ -211,7 +253,7 @@ export const NewKarte: FC = () => {
               </InputGroup>
               <InputGroup>
                 <InputLeftAddon>その他（アレルギー等）</InputLeftAddon>
-                <Input type="text" value={customer?.allergy} />
+                <Input type="text" value={customer?.allergy} id="allergy"/>
               </InputGroup>
             </AccordionPanel>
           </AccordionItem>
@@ -227,7 +269,7 @@ export const NewKarte: FC = () => {
             <AccordionPanel pb={4}>
               <InputGroup>
                 <InputLeftAddon>髪の長さ</InputLeftAddon>
-                <Select>
+                <Select id="hair_length">
                   <option value="指定なし">指定なし</option>
                   <option value="ベリーショート：耳が完全に見えるような短さ">
                     ベリーショート：耳が完全に見えるような短さ
@@ -248,11 +290,11 @@ export const NewKarte: FC = () => {
               </InputGroup>
               <InputGroup>
                 <InputLeftAddon>髪のカラー</InputLeftAddon>
-                <Input type="color"></Input>
+                <Input type="color" id="hair_color"></Input>
               </InputGroup>
               <InputGroup>
                 <InputLeftAddon>パーマ</InputLeftAddon>
-                <Select>
+                <Select id="hair_parm">
                   <option value="指定なし">指定なし</option>
                   <option value="ストレート">ストレート</option>
                   <option value="ウェーブ">ウェーブ</option>
@@ -272,6 +314,7 @@ export const NewKarte: FC = () => {
             pr={"4rem"}
             borderRadius={"5rem"}
             height={"3rem"}
+            onClick={getInputValue}
           >
             髪型のイメージ選択へ
           </Button>

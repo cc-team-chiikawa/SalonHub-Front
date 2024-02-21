@@ -103,22 +103,49 @@ const Hairstyle = () => {
   }, []);
 
   return (
-    <Container alignItems={"center"} pt={"10rem"}>
-      <VStack gap={"2rem"}>
-        <Text fontSize={"1.5rem"} fontWeight={"bold"}>
-          イメージに近い髪型を選択してください
-        </Text>
-        <Center flexDirection="column" p={5}>
-          <Wrap spacing="30px" justify="center">
-            {images.map((image) => (
-              <WrapItem
-                key={image.id}
-                boxShadow="md"
-                borderRadius="lg"
-                overflow="hidden"
-                border={selectedImage === image.id ? "2px solid blue" : "none"} // Add border when image is selected
-                cursor="pointer"
-                onClick={() => handleImageClick(image.id)} // Call handleImageClick function on image click
+    <Container maxW="none" p={0} h={"100%"}>
+      <MenuBar />
+      <Container maxW="none" p={"2rem"} bg={"brandGray.500"} h={"100%"}>
+        <VStack alignItems={"start"} gap={"1rem"}>
+          <Header customer="TODO dummy" />
+        </VStack>
+        <VStack gap={"2rem"}>
+          <Text fontSize={"1.5rem"} fontWeight={"bold"}>
+            イメージに近い髪型を選択してください
+          </Text>
+          <Center flexDirection="column" p={5}>
+            <Wrap spacing="30px" justify="center">
+              {images.map((image) => (
+                <WrapItem
+                  key={image.id}
+                  boxShadow="md"
+                  borderRadius="lg"
+                  overflow="hidden"
+                  border={
+                    selectedImage === image.id ? "2px solid blue" : "none"
+                  } // Add border when image is selected
+                  cursor="pointer"
+                  onClick={() => handleImageClick(image.id)} // Call handleImageClick function on image click
+                >
+                  <Image
+                    src={image.image}
+                    boxSize="512px"
+                    objectFit="cover"
+                    alt={`画像 ${image.id}`}
+                    _hover={{ opacity: 0.7 }}
+                  />
+                </WrapItem>
+              ))}
+            </Wrap>
+            <Link as={ReactRouterLink} to="/customers/sent">
+              <Button
+                mt={4}
+                bg={"brandOrange.500"}
+                color={"white"}
+                pl={"4rem"}
+                pr={"4rem"}
+                borderRadius={"5rem"}
+                height={"3rem"}
               >
                 <Image
                   src={image.image}
@@ -162,10 +189,12 @@ const Hairstyle = () => {
               borderRadius={"5rem"}
               height={"3rem"}>
               送信
-            </Button>
-          </Link>
-        </Center>{" "}
-      </VStack>
+              </Button>
+            </Link>
+          </Center>{" "}
+        </VStack>
+      </Container>
+
     </Container>
   );
 };
