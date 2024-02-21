@@ -48,7 +48,7 @@ const Sent = () => {
         gap={"2rem"}
         alignItems={"left"}
         marginLeft={"5rem"}
-        marginTop={"10rem"}
+        marginTop={"12rem"}
       >
         <Text fontSize={"1.5rem"} style={{ fontStyle: "italic" }}>
           Thank you!
