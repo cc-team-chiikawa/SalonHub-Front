@@ -34,6 +34,18 @@ import { KartesList } from "@/componets/KartesList";
 import { karte } from "@/types";
 import MenuBar from "@/componets/MenuBar/MenuBar";
 import { Header } from "@/componets/Header";
+import { keyframes } from "@emotion/react";
+
+const fadeInFromLeftAnimation = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`;
 
 const Sent = () => {
   useEffect(() => {
@@ -49,6 +61,9 @@ const Sent = () => {
         alignItems={"left"}
         marginLeft={"5rem"}
         marginTop={"12rem"}
+        css={{
+          animation: `${fadeInFromLeftAnimation} 1s ease-out forwards`,
+        }}
       >
         <Text fontSize={"1.5rem"} style={{ fontStyle: "italic" }}>
           Thank you!
@@ -78,6 +93,9 @@ const Sent = () => {
           backgroundRepeat: "no-repeat",
           backgroundPositionX: "center", // Add this line to center the image
           zIndex: -2, //ボックスがzIndexが0以上の他の要素の背後に配置
+        }}
+        css={{
+          animation: `${fadeInFromLeftAnimation} 1s ease-out forwards`,
         }}
       />
       <Box
