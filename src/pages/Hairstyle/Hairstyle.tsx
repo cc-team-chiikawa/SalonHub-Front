@@ -137,6 +137,28 @@ const Hairstyle = () => {
                 </WrapItem>
               ))}
             </Wrap>
+            {/* できればsuspendでやりたい */}
+            <Wrap spacing="30px" justify="center">
+              {styles.map((style) => (
+                <WrapItem
+                  key={style}
+                  boxShadow="md"
+                  borderRadius="lg"
+                  overflow="hidden"
+                  border={selectedStyle === style ? "2px solid blue" : "none"} // Add border when image is selected
+                  cursor="pointer"
+                  onClick={() => setSelectedStyle(style)} // Call handleImageClick function on image click
+                >
+                  <Image
+                    src={`data:image/png;base64,${style}`}
+                    boxSize="512px"
+                    objectFit="cover"
+                    alt={`画像`}
+                    _hover={{ opacity: 0.7 }}
+                  />
+                </WrapItem>
+              ))}
+            </Wrap>
             <Link as={ReactRouterLink} to="/customers/sent">
               <Button
                 mt={4}
@@ -145,56 +167,13 @@ const Hairstyle = () => {
                 pl={"4rem"}
                 pr={"4rem"}
                 borderRadius={"5rem"}
-                height={"3rem"}
-              >
-                <Image
-                  src={image.image}
-                  boxSize="512px"
-                  objectFit="cover"
-                  alt={`画像 ${image.id}`}
-                  _hover={{ opacity: 0.7 }}
-                />
-              </WrapItem>
-            ))}
-          </Wrap>
-          {/* できればsuspendでやりたい */}
-          <Wrap spacing="30px" justify="center">
-            {styles.map((style) => (
-              <WrapItem
-                key={style}
-                boxShadow="md"
-                borderRadius="lg"
-                overflow="hidden"
-                border={selectedStyle === style ? "2px solid blue" : "none"} // Add border when image is selected
-                cursor="pointer"
-                onClick={() => setSelectedStyle(style)} // Call handleImageClick function on image click
-              >
-                <Image
-                  src={`data:image/png;base64,${style}`}
-                  boxSize="512px"
-                  objectFit="cover"
-                  alt={`画像`}
-                  _hover={{ opacity: 0.7 }}
-                />
-              </WrapItem>
-            ))}
-          </Wrap>
-          <Link as={ReactRouterLink} to="/customers/sent">
-            <Button
-              mt={4}
-              bg={"brandOrange.500"}
-              color={"white"}
-              pl={"4rem"}
-              pr={"4rem"}
-              borderRadius={"5rem"}
-              height={"3rem"}>
-              送信
+                height={"3rem"}>
+                送信
               </Button>
             </Link>
           </Center>{" "}
         </VStack>
       </Container>
-
     </Container>
   );
 };
