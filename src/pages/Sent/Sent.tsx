@@ -29,7 +29,7 @@ import { FC, useEffect, useMemo, useState } from "react";
 import { useParams, Link as ReactRouterLink } from "react-router-dom";
 import { customer } from "../../types/customer";
 import { createApi } from "@/apis/createApi";
-import { CustomerInputForm } from "@/componets/CustomerInputForm";
+import { MemberInformation } from "@/componets/MemberInformation";
 import { KartesList } from "@/componets/KartesList";
 import { karte } from "@/types";
 import MenuBar from "@/componets/MenuBar/MenuBar";
