@@ -42,11 +42,11 @@ const router = createBrowserRouter([
 
   // 美容師モード
   {
-    path: "stylist/customers/List",
+    path: "stylist/list",
     element: <CustomersList />,
   },
   {
-    path: "stylist/customers/:id",
+    path: "stylist/detail",
     element: <Customer />,
   },
 ]);

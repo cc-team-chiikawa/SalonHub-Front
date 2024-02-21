@@ -1,7 +1,6 @@
 import { customer } from "@/types/customer";
 import { loginInformation } from "@/types";
 
-// TODO
 export const login = async (loginInformation: loginInformation) => {
   const response = await fetch("/api/customers/login", {
     method: "POST",
@@ -26,7 +25,7 @@ export const getCustomers = async () => {
 
   customers.forEach((customer: customer) => {
     // 日付を Date オブジェクトに変換
-    if (customer.birthday) {
+    if (typeof customer.birthday === "string") {
       customer.birthday = new Date(customer.birthday);
     }
   });
@@ -39,16 +38,16 @@ export const getCustomer = async (id: string) => {
   const customer = await data.json();
 
   // 日付を Date オブジェクトに変換
-  if (customer.birthday) {
+  if (typeof customer.birthday === "string") {
     customer.birthday = new Date(customer.birthday);
   }
 
-  if (customer.kartes) {
-    customer.kartes = customer.kartes.map((karte) => ({
-      id: karte.id,
-      treatmentDay: new Date(karte.treatment_day),
-    }));
-  }
+  // if (customer.kartes) {
+  //   customer.kartes = customer.kartes.map((karte) => ({
+  //     id: karte.id,
+  //     treatmentDay: new Date(karte.treatment_day),
+  //   }));
+  // }
 
   return customer as customer;
 };
@@ -69,7 +68,7 @@ export const postCustomer = async (newCustomer: customer) => {
   const customer = await response.json();
 
   // 日付を Date オブジェクトに変換
-  if (customer.birthday) {
+  if (typeof customer.birthday === "string") {
     customer.birthday = new Date(customer.birthday);
   }
 
@@ -92,7 +91,7 @@ export const patchCustomer = async (id: string, updatedCustomer: customer) => {
   const customer = await response.json();
 
   // 日付を Date オブジェクトに変換
-  if (customer.birthday) {
+  if (typeof customer.birthday === "string") {
     customer.birthday = new Date(customer.birthday);
   }
 
