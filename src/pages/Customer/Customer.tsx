@@ -29,21 +29,45 @@ import { FC, useEffect, useMemo, useState } from "react";
 import { useParams, Link as ReactRouterLink } from "react-router-dom";
 import { customer } from "../../types/customer";
 import { createApi } from "@/apis/createApi";
-import { CustomerInputForm } from "@/componets/CustomerInputForm";
 import { KartesList } from "@/componets/KartesList";
 import { karte } from "@/types";
 import MenuBar from "@/componets/MenuBar/MenuBar";
 import { Header } from "@/componets/Header";
+import { MemberInformation } from "@/componets/MemberInformation";
+import { KarteInformation } from "@/componets/KarteInformation";
 
-const Customer = () => {
+export const Customer: FC = () => {
+  const [customer, setCustomer] = useState<customer>();
+  const { id } = useParams<{ id: string }>();
+  const api = useMemo(() => createApi(), []);
+
+  useEffect(() => {
+    const getData = async () => {
+      const customer = await api.customer.getCustomer(id!);
+      setCustomer(customer);
+    };
+
+    getData();
+  }, [api, id]);
+
+  // TODO: user
+  // TODO: 灰色のばす
+
   return (
-    <Container alignItems={"center"} pt={"10rem"}>
-      <VStack gap={"2rem"}>
-        <Text fontSize={"1.5rem"} fontWeight={"bold"}>
-          Customer
-        </Text>
-      </VStack>
-    </Container>
+    customer && (
+      <Container maxW="none" p={0} h={"100%"}>
+        <MenuBar />
+        <Container maxW="none" p={"2rem"} bg={"brandGray.500"} h={"100%"}>
+          <VStack alignItems={"start"} gap={"1rem"}>
+            <Header customer={customer} />
+            <MemberInformation customer={customer} />
+            <KarteInformation customer={customer} />
+            <KartesList karteHeaders={customer.kartes} />
+          </VStack>
+        </Container>
+      </Container>
+    )
   );
 };
+
 export default Customer;

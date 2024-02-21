@@ -18,12 +18,6 @@ export const MenuBar: FC = () => {
         </HStack>
       </Link>
       <Spacer />
-      <Link to={""}>
-        <HStack>
-          <Text>2択質問</Text>
-          <ExternalLinkIcon />
-        </HStack>
-      </Link>
     </HStack>
   );
 };

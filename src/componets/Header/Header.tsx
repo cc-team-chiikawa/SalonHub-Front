@@ -45,7 +45,6 @@ type props = {
 export const Header: FC<props> = ({ customer }) => {
   return (
     <VStack alignItems={"start"}>
-      <Text fontSize={"0.75rem"}>{`${customer.kana} 様`}</Text>
       <Text
         fontSize={"1.25rem"}
         fontWeight={"bold"}
