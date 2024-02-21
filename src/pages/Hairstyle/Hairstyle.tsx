@@ -33,7 +33,7 @@ import {
   TabPanels,
   Tabs,
 } from "@chakra-ui/react";
-import { FC, useEffect, useMemo, useState } from "react";
+import { FC, Suspense, useEffect, useMemo, useState } from "react";
 import { useParams, Link as ReactRouterLink } from "react-router-dom";
 import { customer } from "../../types/customer";
 import { createApi } from "@/apis/createApi";
@@ -46,7 +46,36 @@ import { Header } from "@/componets/Header";
 import dummyImg from "@/assets/dummy/input.png";
 
 const Hairstyle = () => {
+  const [styles, setStyles] = useState<Array<string | undefined>>([]);
+  const [selectedStyle, setSelectedStyle] = useState<string | undefined>("");
   const [selectedImage, setSelectedImage] = useState<string | null>("1");
+  // const prompt = []; フロント実装
+  const postData = {
+    // テスト用のダミーデータ
+    tags: ["金髪", "「鋼の錬金術師」のエル風"],
+  };
+  const devURI: string = "http://localhost:3000";
+
+  async function fetchImage(postData: object) {
+    try {
+      const response = await fetch(devURI + "/api/image/new", {
+        method: "POST",
+        mode: "cors",
+        body: JSON.stringify(postData), // ボディにデータをJSON形式で設定
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      return await response.text();
+    } catch (err) {
+      console.error("Fetch Error = ", err);
+    }
+  }
 
   const images = [
     { id: "1", image: dummyImg },
@@ -57,6 +86,21 @@ const Hairstyle = () => {
   const handleImageClick = (imageId: string) => {
     setSelectedImage(imageId);
   };
+
+  useEffect(() => {
+    //// APIコスト節約のため一時コメントアウト ////
+    // Promise.all([fetchImage(postData)]) //　取得したい画像枚数分引数追加　★1にした
+    //   .then((data) => {
+    //     setStyles(data);
+    //   })
+    //   .catch((err) => {
+    //     console.error("Fetch Error = ", err);
+    //   });
+    //// 暫定遅延用 ////
+    // setInterval(() => {
+    //   addLoadingCount();
+    // }, 3000);
+  }, []);
 
   return (
     <Container alignItems={"center"} pt={"10rem"}>
@@ -86,6 +130,28 @@ const Hairstyle = () => {
               </WrapItem>
             ))}
           </Wrap>
+          {/* できればsuspendでやりたい */}
+          <Wrap spacing="30px" justify="center">
+            {styles.map((style) => (
+              <WrapItem
+                key={style}
+                boxShadow="md"
+                borderRadius="lg"
+                overflow="hidden"
+                border={selectedStyle === style ? "2px solid blue" : "none"} // Add border when image is selected
+                cursor="pointer"
+                onClick={() => setSelectedStyle(style)} // Call handleImageClick function on image click
+              >
+                <Image
+                  src={`data:image/png;base64,${style}`}
+                  boxSize="512px"
+                  objectFit="cover"
+                  alt={`画像`}
+                  _hover={{ opacity: 0.7 }}
+                />
+              </WrapItem>
+            ))}
+          </Wrap>
           <Link as={ReactRouterLink} to="/customers/sent">
             <Button
               mt={4}
@@ -94,8 +160,7 @@ const Hairstyle = () => {
               pl={"4rem"}
               pr={"4rem"}
               borderRadius={"5rem"}
-              height={"3rem"}
-            >
+              height={"3rem"}>
               送信
             </Button>
           </Link>
