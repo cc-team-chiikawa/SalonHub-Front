@@ -13,6 +13,7 @@ import CustomersList from "@/pages/CustomersList/CustomersList.tsx";
 import Customer from "@/pages/Customer/Customer.tsx";
 import { extendTheme } from "@chakra-ui/react";
 import styles from "./main.module.scss";
+import { MyProvider } from "./MyContext.tsx";
 
 const router = createBrowserRouter([
   // メインメニュー
@@ -69,7 +70,9 @@ const theme = extendTheme({
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
-      <RouterProvider router={router} />
+      <MyProvider>
+        <RouterProvider router={router} />
+      </MyProvider>
     </ChakraProvider>
   </React.StrictMode>
 );
