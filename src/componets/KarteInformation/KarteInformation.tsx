@@ -46,6 +46,7 @@ type props = {
 export const KarteInformation: FC<props> = ({ customer }) => {
   return (
     <Accordion
+      defaultIndex={0}
       allowMultiple
       width={"100%"}
       bg={"brandGray.0"}

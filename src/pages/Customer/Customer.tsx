@@ -29,7 +29,7 @@ import { FC, useEffect, useMemo, useState } from "react";
 import { useParams, Link as ReactRouterLink } from "react-router-dom";
 import { customer } from "../../types/customer";
 import { createApi } from "@/apis/createApi";
-import { KartesList } from "@/componets/KartesList";
+import { HistoryInformation } from "@/componets/HistoryInformation";
 import { karte } from "@/types";
 import MenuBar from "@/componets/MenuBar/MenuBar";
 import { Header } from "@/componets/Header";
@@ -62,7 +62,7 @@ export const Customer: FC = () => {
             <Header customer={customer} />
             <MemberInformation customer={customer} />
             <KarteInformation customer={customer} />
-            <KartesList karteHeaders={customer.kartes} />
+            <HistoryInformation karteHeaders={customer.kartes} />
           </VStack>
         </Container>
       </Container>
