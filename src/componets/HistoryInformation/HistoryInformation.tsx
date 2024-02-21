@@ -133,7 +133,7 @@ export const HistoryInformation: FC<props> = ({ karteHeaders }) => {
     stylists &&
     menus && (
       <Accordion
-        defaultIndex={0}
+        defaultIndex={[0]}
         allowMultiple
         width={"100%"}
         bg={"brandGray.0"}

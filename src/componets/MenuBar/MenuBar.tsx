@@ -2,6 +2,7 @@ import { ChevronLeftIcon, ExternalLinkIcon } from "@chakra-ui/icons";
 import { HStack, Spacer, Text } from "@chakra-ui/react";
 import { FC } from "react";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 export const MenuBar: FC = () => {
   return (
@@ -11,10 +12,10 @@ export const MenuBar: FC = () => {
       h={"4rem"}
       p={"1rem"}
     >
-      <Link to={".."}>
+      <Link to={"/"}>
         <HStack>
           <ChevronLeftIcon />
-          <Text>戻る</Text>
+          <Text>利用者選択に戻る</Text>
         </HStack>
       </Link>
       <Spacer />
