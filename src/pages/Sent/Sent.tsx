@@ -65,7 +65,7 @@ const Sent = () => {
           animation: `${fadeInFromLeftAnimation} 1s ease-out forwards`,
         }}
       >
-        <Text fontSize={"1.5rem"} style={{ fontStyle: "italic" }}>
+        <Text fontSize={"2rem"} style={{ fontStyle: "italic" }}>
           Thank you!
         </Text>
       </VStack>
