@@ -1,8 +1,8 @@
 export type customer = {
-  id: string;
+  id?: string;
   card_number?: string;
   birthday?: Date;
-  name: string;
+  name?: string;
   kana?: string;
   gender?: string;
   phone_number?: string;

@@ -38,6 +38,7 @@ import { FC, useEffect, useMemo, useState } from "react";
 import { useParams, Link as ReactRouterLink } from "react-router-dom";
 import { customer } from "../../types/customer";
 import { createApi } from "@/apis/createApi";
+import { useMyContext } from "../../MyContext";
 
 export const NewKarte: FC = () => {
   const [customer, setCustomer] = useState<customer>();
@@ -54,46 +55,67 @@ export const NewKarte: FC = () => {
   }, [api, id]);
 
   function getInputValue() {
-    const card_number = document.getElementById("card_number") as HTMLInputElement;
+    const card_number = document.getElementById(
+      "card_number"
+    ) as HTMLInputElement;
     const birthday = document.getElementById("birthday") as HTMLInputElement;
     const gender = document.getElementById("gender") as HTMLInputElement;
-    const phone_number = document.getElementById("phone_number") as HTMLInputElement;
+    const phone_number = document.getElementById(
+      "phone_number"
+    ) as HTMLInputElement;
     const email = document.getElementById("email") as HTMLInputElement;
     const adress = document.getElementById("adress") as HTMLInputElement;
-    const hair_volume = document.getElementById("hair_volume") as HTMLInputElement;
+    const hair_volume = document.getElementById(
+      "hair_volume"
+    ) as HTMLInputElement;
     const hair_type = document.getElementById("hair_type") as HTMLInputElement;
-    const hair_thickness = document.getElementById("hair_thickness") as HTMLInputElement;
-    const hair_curly = document.getElementById("hair_curly") as HTMLInputElement;
-    const face_shape = document.getElementById("face_shape") as HTMLInputElement;
-    const scalp_condition = document.getElementById("scalp_condition") as HTMLInputElement;
+    const hair_thickness = document.getElementById(
+      "hair_thickness"
+    ) as HTMLInputElement;
+    const hair_curly = document.getElementById(
+      "hair_curly"
+    ) as HTMLInputElement;
+    const face_shape = document.getElementById(
+      "face_shape"
+    ) as HTMLInputElement;
+    const scalp_condition = document.getElementById(
+      "scalp_condition"
+    ) as HTMLInputElement;
     const allergy = document.getElementById("allergy") as HTMLInputElement;
-    const hair_length = document.getElementById("hair_length") as HTMLInputElement;
-    const hair_color = document.getElementById("hair_color") as HTMLInputElement;
+    const hair_length = document.getElementById(
+      "hair_length"
+    ) as HTMLInputElement;
+    const hair_color = document.getElementById(
+      "hair_color"
+    ) as HTMLInputElement;
     const hair_parm = document.getElementById("hair_parm") as HTMLInputElement;
 
     //objectにセット
     let customer = {
-      card_number : card_number.value,
-      birthday : birthday.value,
-      gender : gender.value,
-      phone_number : phone_number.value,
-      email : email.value,
-      adress : adress.value,
-    }
+      card_number: card_number.value,
+      birthday: new Date(birthday.value),
+      gender: gender.value,
+      phone_number: phone_number.value,
+      email: email.value,
+      adress: adress.value,
+    };
     let karte = {
-      hair_volume : hair_volume.value,
-      hair_type : hair_type.value,
-      hair_thickness : hair_thickness.value,
-      hair_curly : hair_curly.value,
-      face_shape : face_shape.value,
-      scalp_condition : scalp_condition.value,
-      allergy : allergy.value,
-    }
+      hair_volume: hair_volume.value,
+      hair_type: hair_type.value,
+      hair_thickness: hair_thickness.value,
+      hair_curly: hair_curly.value,
+      face_shape: face_shape.value,
+      scalp_condition: scalp_condition.value,
+      allergy: allergy.value,
+    };
     let todays_cut = {
-      hair_length : hair_length.value,
-      hair_color :  hair_color.value,
-      perm : hair_parm.value,
-    }
+      hair_length: hair_length.value,
+      hair_color: hair_color.value,
+      perm: hair_parm.value,
+    };
+
+    const context = useMyContext();
+    context.setCustomer(customer);
   }
 
   return (
@@ -133,7 +155,7 @@ export const NewKarte: FC = () => {
                 <InputLeftAddon>生年月日</InputLeftAddon>
                 <Input
                   type="date"
-                  value={customer?.birthday?.toISOString().split("T")[0]}
+                  value={customer?.birthday?.toISOString()}
                   id="birthday"
                 />
               </InputGroup>
@@ -253,7 +275,7 @@ export const NewKarte: FC = () => {
               </InputGroup>
               <InputGroup>
                 <InputLeftAddon>その他（アレルギー等）</InputLeftAddon>
-                <Input type="text" value={customer?.allergy} id="allergy"/>
+                <Input type="text" value={customer?.allergy} id="allergy" />
               </InputGroup>
             </AccordionPanel>
           </AccordionItem>
