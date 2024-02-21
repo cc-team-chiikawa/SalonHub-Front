@@ -38,6 +38,7 @@ import { createApi } from "@/apis/createApi";
 import { formatDate } from "@/utils/utils";
 import { Slider, SliderWithText } from "../Slider";
 import { WomanIcon } from "../../icons/index";
+import { gender } from "@/types/enum";
 
 type props = {
   customer: customer;
@@ -83,7 +84,7 @@ export const MemberInformation: FC<props> = ({ customer }) => {
             <GridItem rowSpan={1} colSpan={1}>
               <LabeledText
                 labelText={"性別"}
-                value={getGenderText(customer.gender)}
+                value={gender[(customer.gender ?? 0) as gender]}
               />
             </GridItem>
             <GridItem rowSpan={1} colSpan={1}>

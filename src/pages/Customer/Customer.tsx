@@ -43,7 +43,7 @@ export const Customer: FC = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const customer = context.customer;
+      const customer = context.customerDetail;
       setCustomer(customer);
     };
 

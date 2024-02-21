@@ -38,12 +38,24 @@ import { createApi } from "@/apis/createApi";
 import { formatDate } from "@/utils/utils";
 import { Slider, SliderWithText } from "../Slider";
 import { WomanIcon } from "../../icons/index";
+import {
+  HairAmount,
+  HairHardness,
+  HairThickness,
+  HairCurly,
+  FaceShape,
+  ScalpCondition,
+} from "../../types/enum";
 
 type props = {
   customer: customer;
 };
 
 export const KarteInformation: FC<props> = ({ customer }) => {
+  const hair_curly = 0;
+  const face_shape = 0;
+  const scalp_condition = 0;
+
   return (
     <Accordion
       defaultIndex={[0]}
@@ -68,36 +80,52 @@ export const KarteInformation: FC<props> = ({ customer }) => {
             templateColumns="repeat(2, 1fr)"
             gap={4}
           >
-            <GridItem rowSpan={1} colSpan={2}>
-              <LabeledComponent labelText="髪の太さ">
-                <SliderWithText
-                  value={customer.hair_thickness}
-                  onChange={() => {}}
-                  isReadOnly={true}
-                  valueToText={getHairThicknessText}
-                />
-              </LabeledComponent>
+            <GridItem rowSpan={1} colSpan={1}>
+              <LabeledText
+                labelText={"髪の量"}
+                value={HairAmount[(customer.hair_amount ?? 0) as HairAmount]}
+              />
             </GridItem>
-            <GridItem rowSpan={1} colSpan={2}>
-              <LabeledComponent labelText="髪の硬さ">
-                <SliderWithText
-                  value={customer.hair_hardness}
-                  onChange={() => {}}
-                  isReadOnly={true}
-                  valueToText={getHairHardnessText}
-                />
-              </LabeledComponent>
+
+            <GridItem rowSpan={1} colSpan={1}>
+              <LabeledText
+                labelText={"髪の硬さ"}
+                value={
+                  HairHardness[(customer.hair_hardness ?? 0) as HairHardness]
+                }
+              />
             </GridItem>
-            <GridItem rowSpan={1} colSpan={2}>
-              <LabeledComponent labelText="髪の量">
-                <SliderWithText
-                  value={customer.hair_amount}
-                  onChange={() => {}}
-                  isReadOnly={true}
-                  valueToText={getHairAmountText}
-                />
-              </LabeledComponent>
+
+            <GridItem rowSpan={1} colSpan={1}>
+              <LabeledText
+                labelText={"髪の太さ"}
+                value={
+                  HairThickness[(customer.hair_thickness ?? 0) as HairThickness]
+                }
+              />
             </GridItem>
+
+            <GridItem rowSpan={1} colSpan={1}>
+              <LabeledText
+                labelText={"髪のクセ"}
+                value={HairCurly[(hair_curly ?? 0) as HairCurly]}
+              />
+            </GridItem>
+
+            <GridItem rowSpan={1} colSpan={1}>
+              <LabeledText
+                labelText={"顔の形"}
+                value={FaceShape[(face_shape ?? 0) as FaceShape]}
+              />
+            </GridItem>
+
+            <GridItem rowSpan={1} colSpan={1}>
+              <LabeledText
+                labelText={"頭皮の状態"}
+                value={ScalpCondition[(scalp_condition ?? 0) as ScalpCondition]}
+              />
+            </GridItem>
+
             <GridItem rowSpan={1} colSpan={2}>
               <LabeledText
                 labelText={"アレルギー"}

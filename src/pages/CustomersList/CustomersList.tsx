@@ -69,7 +69,7 @@ const CustomersList = () => {
   const clickDetailButton = async () => {
     if (selectedCustomer?.id) {
       const customer = await api.customer.getCustomer(selectedCustomer.id);
-      context.setCustomer(customer);
+      context.setCustomerDetail(customer);
     }
   };
 

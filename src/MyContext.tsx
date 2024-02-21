@@ -3,8 +3,10 @@ import { customer as Customer } from "./types";
 
 export type MyContextType = {
   customer: Customer | undefined;
+  customerDetail: Customer | undefined;
   image: string;
   setCustomer: (customer: Customer | undefined) => void; // setCustomer 関数の型もContextに含める
+  setCustomerDetail: (customer: Customer | undefined) => void; // setCustomer 関数の型もContextに含める
   setImage: (image: string) => void; // setImage 関数の型もContextに含める
 };
 
@@ -25,9 +27,20 @@ export const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     id: "",
     name: "",
   });
+  const [customerDetail, setCustomerDetail] = useState<Customer | undefined>({
+    id: "",
+    name: "",
+  });
   const [image, setImage] = useState("");
 
-  const value = { customer, image, setCustomer, setImage };
+  const value = {
+    customer,
+    customerDetail,
+    image,
+    setCustomer,
+    setCustomerDetail,
+    setImage,
+  };
 
   return <MyContext.Provider value={value}>{children}</MyContext.Provider>;
 };
