@@ -41,13 +41,13 @@ const Sent = () => {
   }, []);
 
   return (
-    <Container alignItems={"center"} pt={"10rem"}>
+    <Container maxW="none" p={0} h={"100%"}>
       <MenuBar />
 
       <VStack
         gap={"2rem"}
         alignItems={"left"}
-        marginLeft={"0rem"}
+        marginLeft={"5rem"}
         marginTop={"10rem"}
       >
         <Text fontSize={"1.5rem"} style={{ fontStyle: "italic" }}>
@@ -69,7 +69,7 @@ const Sent = () => {
       />
       <Box //女性の絵
         position="absolute"
-        top={"17rem"} // ここを調整して要素を下に移動させます
+        top={"13rem"} // ここを調整して要素を下に移動させます
         left={"4.5rem"}
         width="100%"
         height="300%" // Change the height to "100%" to fit the image within the container
