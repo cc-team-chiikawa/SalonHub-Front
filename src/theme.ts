@@ -7,7 +7,7 @@ export const colors = {
   // bgImage: "lightblue",
   // bgMenuBar: "brandOrange.100",
   // fgMenuBar: "brandOrange.500",
-  bgAll: "rgba(232,255,193)",
+  bgAll: "rgba(81, 218, 207, 1)",
   bgMain: "brandGray.0",
   bgButton: "rgba(2, 120, 174, 1)",
   fgButton: "white",
@@ -15,4 +15,5 @@ export const colors = {
   bgImage: "rgba(232,255,193)",
   bgMenuBar: "rgba(2, 120, 174, 1)",
   fgMenuBar: "white",
+  bgLabel: "rgba(232,255,193,1)",
 };
