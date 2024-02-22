@@ -26,10 +26,12 @@ export const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [customer, setCustomer] = useState<Customer | undefined>({
     id: "",
     name: "",
+    birthday: new Date(),
   });
   const [customerDetail, setCustomerDetail] = useState<Customer | undefined>({
     id: "",
     name: "",
+    birthday: new Date(),
   });
   const [image, setImage] = useState("");
 

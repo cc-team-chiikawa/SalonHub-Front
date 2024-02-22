@@ -43,6 +43,7 @@ import { HairAmount } from "../../types/enum";
 import { gender } from "@/types/enum";
 import { HairHardness } from "@/types/enum";
 import { HairThickness } from "@/types/enum";
+import { HairColor } from "../../types/enum";
 
 export const NewKarte: FC = () => {
   const [customer, setCustomer] = useState<customer>();
@@ -70,7 +71,6 @@ export const NewKarte: FC = () => {
     const phone_number = document.getElementById(
       "phone_number"
     ) as HTMLInputElement;
-    const email = document.getElementById("email") as HTMLInputElement;
     const adress = document.getElementById("adress") as HTMLInputElement;
     const hair_amount = document.getElementById(
       "hair_amount"
@@ -118,7 +118,7 @@ export const NewKarte: FC = () => {
       kana: kana.value,
       gender: gender.value,
       phone_number: phone_number.value,
-      adress: email.value,
+      adress: adress.value,
       hair_thickness: Number(hair_thickness.value),
       hair_hardness: Number(hair_hardness.value),
       hair_amount: Number(hair_amount.value),
@@ -129,14 +129,33 @@ export const NewKarte: FC = () => {
       memo2: JSON.stringify(todays_cut),
     };
     context.setCustomer(customer);
+    console.log(customer);
+    console.log(customer.memo2);
   }
 
-  function getEnumOptions(array: any[]) {
+  function getEnumOptionsNumber(array: any[]) {
     return array
       .filter(([key]) => isNaN(Number(key)))
       .map(([key, value]) => {
         return <option value={value}>{key}</option>;
       });
+  }
+
+  function getEnumOptionsText(array: any[]) {
+    return array
+      .filter(([key]) => isNaN(Number(key)))
+      .map(([key, value]) => {
+        return <option value={key}>{key}</option>;
+      });
+  }
+
+  function generateRandomDigits() {
+    let digits = "";
+    while (digits.length < 16) {
+      const randomDigits = Math.floor(Math.random() * 1e15).toString();
+      digits += randomDigits;
+    }
+    return digits.substring(0, 16);
   }
 
   return (
@@ -163,48 +182,44 @@ export const NewKarte: FC = () => {
                 <Input
                   type="number"
                   isReadOnly
-                  value={customer?.card_number}
+                  value={generateRandomDigits()}
                   id="card_number"
                 />
               </InputGroup>
               <InputGroup>
                 <InputLeftAddon>名前</InputLeftAddon>
-                <Input type="text" value={customer?.name} id="name" />
+                <Input type="text" value="高橋 朱美" id="name" />
               </InputGroup>
               <InputGroup>
                 <InputLeftAddon>カナ</InputLeftAddon>
-                <Input type="text" value={customer?.kana} id="kana" />
+                <Input type="text" value="タカハシ アケミ" id="kana" />
               </InputGroup>
               <InputGroup>
                 <InputLeftAddon>生年月日</InputLeftAddon>
-                <Input
-                  type="date"
-                  value={customer?.birthday?.toISOString()}
-                  id="birthday"
-                />
+                <Input type="date" value="2000-10-01" id="birthday" />
               </InputGroup>
               <InputGroup>
                 <InputLeftAddon>性別</InputLeftAddon>
-                <Select id="gender">
-                  {getEnumOptions(Object.entries(gender))}
+                <Select id="gender" value="1">
+                  {getEnumOptionsNumber(Object.entries(gender))}
                 </Select>
               </InputGroup>
               <InputGroup>
                 <InputLeftAddon>電話番号</InputLeftAddon>
                 <Input
                   type="tel"
-                  value={customer?.phone_number}
+                  value="090-9999-9999"
                   placeholder="090-1234-5678"
                   id="phone_number"
                 />
               </InputGroup>
               <InputGroup>
                 <InputLeftAddon>メールアドレス</InputLeftAddon>
-                <Input type="email" value={customer?.email} id="email" />
+                <Input type="adress" value="sample@sample.jp" id="adress" />
               </InputGroup>
               <InputGroup>
                 <InputLeftAddon>住所</InputLeftAddon>
-                <Input type="text" value={customer?.adress} id="adress" />
+                <Input type="text" value="港区XXXXXXXXXXX" id="adress" />
               </InputGroup>
               {/* <InputGroup>
               <InputLeftAddon>メモ1</InputLeftAddon>
@@ -240,20 +255,20 @@ export const NewKarte: FC = () => {
             <AccordionPanel pb={4}>
               <InputGroup>
                 <InputLeftAddon>髪の量</InputLeftAddon>
-                <Select id="hair_amount">
-                  {getEnumOptions(Object.entries(HairAmount))}
+                <Select id="hair_amount" value="2">
+                  {getEnumOptionsNumber(Object.entries(HairAmount))}
                 </Select>
               </InputGroup>
               <InputGroup>
                 <InputLeftAddon>髪の硬さ</InputLeftAddon>
-                <Select id="hair_hardness">
-                  {getEnumOptions(Object.entries(HairHardness))}
+                <Select id="hair_hardness" value="1">
+                  {getEnumOptionsNumber(Object.entries(HairHardness))}
                 </Select>
               </InputGroup>
               <InputGroup>
                 <InputLeftAddon>髪の太さ</InputLeftAddon>
-                <Select id="hair_thickness">
-                  {getEnumOptions(Object.entries(HairThickness))}
+                <Select id="hair_thickness" value="1">
+                  {getEnumOptionsNumber(Object.entries(HairThickness))}
                 </Select>
               </InputGroup>
               <InputGroup>
@@ -266,7 +281,7 @@ export const NewKarte: FC = () => {
               </InputGroup>
               <InputGroup>
                 <InputLeftAddon>顔の形</InputLeftAddon>
-                <Select id="face_shape">
+                <Select id="face_shape" value="逆三角">
                   <option value="指定なし">指定なし</option>
                   <option value="丸型">丸型</option>
                   <option value="卵型">卵型</option>
@@ -277,7 +292,7 @@ export const NewKarte: FC = () => {
               </InputGroup>
               <InputGroup>
                 <InputLeftAddon>頭皮の状態</InputLeftAddon>
-                <Select id="scalp_condition">
+                <Select id="scalp_condition" value="普通">
                   <option value="指定なし">指定なし</option>
                   <option value="乾燥">乾燥</option>
                   <option value="普通">普通</option>
@@ -286,7 +301,7 @@ export const NewKarte: FC = () => {
               </InputGroup>
               <InputGroup>
                 <InputLeftAddon>その他（アレルギー等）</InputLeftAddon>
-                <Input type="text" value={customer?.allergy} id="allergy" />
+                <Input type="text" value="花粉" id="allergy" />
               </InputGroup>
             </AccordionPanel>
           </AccordionItem>
@@ -302,7 +317,7 @@ export const NewKarte: FC = () => {
             <AccordionPanel pb={4}>
               <InputGroup>
                 <InputLeftAddon>髪の長さ</InputLeftAddon>
-                <Select id="hair_length">
+                <Select id="hair_length" value="ロング：肩よりも長い">
                   <option value="指定なし">指定なし</option>
                   <option value="ベリーショート：耳が完全に見えるような短さ">
                     ベリーショート：耳が完全に見えるような短さ
@@ -323,11 +338,13 @@ export const NewKarte: FC = () => {
               </InputGroup>
               <InputGroup>
                 <InputLeftAddon>髪のカラー</InputLeftAddon>
-                <Input type="color" id="hair_color"></Input>
+                <Select id="hair_color" value="ピンク">
+                  {getEnumOptionsText(Object.entries(HairColor))}
+                </Select>
               </InputGroup>
               <InputGroup>
                 <InputLeftAddon>パーマ</InputLeftAddon>
-                <Select id="hair_parm">
+                <Select id="hair_parm" value="カール">
                   <option value="指定なし">指定なし</option>
                   <option value="ストレート">ストレート</option>
                   <option value="ウェーブ">ウェーブ</option>
