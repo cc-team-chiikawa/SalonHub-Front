@@ -38,7 +38,11 @@ import { FC, useEffect, useMemo, useState } from "react";
 import { useParams, Link as ReactRouterLink } from "react-router-dom";
 import { customer } from "../../types/customer";
 import { createApi } from "@/apis/createApi";
-import { useMyContext } from "../../MyContext";
+import { useMyContext } from "@/MyContext";
+import { HairAmount } from "../../types/enum";
+import { gender } from "@/types/enum";
+import { HairHardness } from "@/types/enum";
+import { HairThickness } from "@/types/enum";
 
 export const NewKarte: FC = () => {
   const [customer, setCustomer] = useState<customer>();
@@ -53,6 +57,7 @@ export const NewKarte: FC = () => {
 
     getData();
   }, [api, id]);
+  const context = useMyContext();
 
   function getInputValue() {
     const card_number = document.getElementById(
@@ -65,10 +70,12 @@ export const NewKarte: FC = () => {
     ) as HTMLInputElement;
     const email = document.getElementById("email") as HTMLInputElement;
     const adress = document.getElementById("adress") as HTMLInputElement;
-    const hair_volume = document.getElementById(
-      "hair_volume"
+    const hair_amount = document.getElementById(
+      "hair_amount"
     ) as HTMLInputElement;
-    const hair_type = document.getElementById("hair_type") as HTMLInputElement;
+    const hair_hardness = document.getElementById(
+      "hair_hardness"
+    ) as HTMLInputElement;
     const hair_thickness = document.getElementById(
       "hair_thickness"
     ) as HTMLInputElement;
@@ -97,16 +104,16 @@ export const NewKarte: FC = () => {
       gender: gender.value,
       phone_number: phone_number.value,
       email: email.value,
-      adress: adress.value,
+      hair_thickness: hair_thickness.value,
+      hair_hardness: hair_hardness.value,
+      hair_amount: hair_amount.value,
+      allergy: allergy.value,
     };
     let karte = {
-      hair_volume: hair_volume.value,
-      hair_type: hair_type.value,
-      hair_thickness: hair_thickness.value,
+      adress: adress.value,
       hair_curly: hair_curly.value,
       face_shape: face_shape.value,
       scalp_condition: scalp_condition.value,
-      allergy: allergy.value,
     };
     let todays_cut = {
       hair_length: hair_length.value,
@@ -114,8 +121,15 @@ export const NewKarte: FC = () => {
       perm: hair_parm.value,
     };
 
-    const context = useMyContext();
     context.setCustomer(customer);
+  }
+
+  function getEnumOptions(array: any[]) {
+    return array
+      .filter(([key]) => isNaN(Number(key)))
+      .map(([key, value]) => {
+        return <option value={value}>{key}</option>;
+      });
   }
 
   return (
@@ -161,13 +175,9 @@ export const NewKarte: FC = () => {
               </InputGroup>
               <InputGroup>
                 <InputLeftAddon>性別</InputLeftAddon>
-                <InputGroup>
-                  <Select id="gender">
-                    <option value="指定なし">指定なし</option>
-                    <option value="男性">男性</option>
-                    <option value="女性">女性</option>
-                  </Select>
-                </InputGroup>
+                <Select id="gender">
+                  {getEnumOptions(Object.entries(gender))}
+                </Select>
               </InputGroup>
               <InputGroup>
                 <InputLeftAddon>電話番号</InputLeftAddon>
@@ -220,29 +230,24 @@ export const NewKarte: FC = () => {
             <AccordionPanel pb={4}>
               <InputGroup>
                 <InputLeftAddon>髪の量</InputLeftAddon>
-                <Select id="hair_volume">
-                  <option value="指定なし">指定なし</option>
-                  <option value="少ない">少ない</option>
-                  <option value="普通">普通</option>
-                  <option value="多い">多い</option>
+                {/* EnumのHairAmountを使って
+                 optionの内容をループで作成してください。 */}
+                <Select id="hair_amount">
+                  {getEnumOptions(Object.entries(HairAmount))}
                 </Select>
               </InputGroup>
               <InputGroup>
-                <InputLeftAddon>髪質</InputLeftAddon>
-                <Select id="hair_type">
-                  <option value="指定なし">指定なし</option>
-                  <option value="柔らかい">柔らかい</option>
-                  <option value="普通">普通</option>
-                  <option value="硬い">硬い</option>
+                <InputLeftAddon>髪の硬さ</InputLeftAddon>
+                {/* EnumのHairHardnessを使って
+                 optionの内容をループで作成してください。 */}
+                <Select id="hair_hardness">
+                  {getEnumOptions(Object.entries(HairHardness))}
                 </Select>
               </InputGroup>
               <InputGroup>
-                <InputLeftAddon>太さ</InputLeftAddon>
+                <InputLeftAddon>髪の太さ</InputLeftAddon>
                 <Select id="hair_thickness">
-                  <option value="指定なし">指定なし</option>
-                  <option value="細い">細い</option>
-                  <option value="普通">普通</option>
-                  <option value="太い">太い</option>
+                  {getEnumOptions(Object.entries(HairThickness))}
                 </Select>
               </InputGroup>
               <InputGroup>
