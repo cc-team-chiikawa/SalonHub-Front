@@ -112,9 +112,6 @@ const Hairstyle = () => {
     <Container maxW="none" p={0} h={"100%"}>
       <MenuBar />
       <Container maxW="none" p={"2rem"} bg={colors.bgAll} h={"100%"}>
-        <VStack alignItems={"start"} gap={"1rem"}>
-          <Header name={customer?.name} />
-        </VStack>
         <VStack gap="2rem" bg={colors.bgMain} p="1rem" borderRadius="1rem">
           <Text fontSize={"1.5rem"} fontWeight={"bold"}>
             イメージに近い髪型を選択してください

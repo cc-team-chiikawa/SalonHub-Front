@@ -148,7 +148,7 @@ export const NewKarte: FC = () => {
               </h2>
               <AccordionPanel pb={4}>
                 <InputGroup>
-                  <InputLeftAddon>会員番号</InputLeftAddon>
+                  <InputLeftAddon bg={colors.bgLabel}>会員番号</InputLeftAddon>
                   <Input
                     type="number"
                     isReadOnly
@@ -157,25 +157,25 @@ export const NewKarte: FC = () => {
                   />
                 </InputGroup>
                 <InputGroup>
-                  <InputLeftAddon>名前</InputLeftAddon>
+                  <InputLeftAddon bg={colors.bgLabel}>名前</InputLeftAddon>
                   <Input type="text" value="高橋 朱美" id="name" />
                 </InputGroup>
                 <InputGroup>
-                  <InputLeftAddon>カナ</InputLeftAddon>
+                  <InputLeftAddon bg={colors.bgLabel}>カナ</InputLeftAddon>
                   <Input type="text" value="タカハシ アケミ" id="kana" />
                 </InputGroup>
                 <InputGroup>
-                  <InputLeftAddon>生年月日</InputLeftAddon>
+                  <InputLeftAddon bg={colors.bgLabel}>生年月日</InputLeftAddon>
                   <Input type="date" value="2000-10-01" id="birthday" />
                 </InputGroup>
                 <InputGroup>
-                  <InputLeftAddon>性別</InputLeftAddon>
+                  <InputLeftAddon bg={colors.bgLabel}>性別</InputLeftAddon>
                   <Select id="gender" value="1">
                     {getEnumOptionsNumber(Object.entries(gender))}
                   </Select>
                 </InputGroup>
                 <InputGroup>
-                  <InputLeftAddon>電話番号</InputLeftAddon>
+                  <InputLeftAddon bg={colors.bgLabel}>電話番号</InputLeftAddon>
                   <Input
                     type="tel"
                     value="090-9999-9999"
@@ -184,11 +184,13 @@ export const NewKarte: FC = () => {
                   />
                 </InputGroup>
                 <InputGroup>
-                  <InputLeftAddon>メールアドレス</InputLeftAddon>
+                  <InputLeftAddon bg={colors.bgLabel}>
+                    メールアドレス
+                  </InputLeftAddon>
                   <Input type="adress" value="sample@sample.jp" id="adress" />
                 </InputGroup>
                 <InputGroup>
-                  <InputLeftAddon>住所</InputLeftAddon>
+                  <InputLeftAddon bg={colors.bgLabel}>住所</InputLeftAddon>
                   <Input type="text" value="港区XXXXXXXXXXX" id="adress" />
                 </InputGroup>
               </AccordionPanel>
@@ -204,25 +206,25 @@ export const NewKarte: FC = () => {
               </h2>
               <AccordionPanel pb={4}>
                 <InputGroup>
-                  <InputLeftAddon>髪の量</InputLeftAddon>
+                  <InputLeftAddon bg={colors.bgLabel}>髪の量</InputLeftAddon>
                   <Select id="hair_amount" value="2">
                     {getEnumOptionsNumber(Object.entries(HairAmount))}
                   </Select>
                 </InputGroup>
                 <InputGroup>
-                  <InputLeftAddon>髪の硬さ</InputLeftAddon>
+                  <InputLeftAddon bg={colors.bgLabel}>髪の硬さ</InputLeftAddon>
                   <Select id="hair_hardness" value="1">
                     {getEnumOptionsNumber(Object.entries(HairHardness))}
                   </Select>
                 </InputGroup>
                 <InputGroup>
-                  <InputLeftAddon>髪の太さ</InputLeftAddon>
+                  <InputLeftAddon bg={colors.bgLabel}>髪の太さ</InputLeftAddon>
                   <Select id="hair_thickness" value="1">
                     {getEnumOptionsNumber(Object.entries(HairThickness))}
                   </Select>
                 </InputGroup>
                 <InputGroup>
-                  <InputLeftAddon>クセ</InputLeftAddon>
+                  <InputLeftAddon bg={colors.bgLabel}>クセ</InputLeftAddon>
                   <Select id="hair_curly">
                     <option value="指定なし">指定なし</option>
                     <option value="少し">少し</option>
@@ -230,7 +232,7 @@ export const NewKarte: FC = () => {
                   </Select>
                 </InputGroup>
                 <InputGroup>
-                  <InputLeftAddon>顔の形</InputLeftAddon>
+                  <InputLeftAddon bg={colors.bgLabel}>顔の形</InputLeftAddon>
                   <Select id="face_shape" value="逆三角">
                     <option value="指定なし">指定なし</option>
                     <option value="丸型">丸型</option>
@@ -241,7 +243,9 @@ export const NewKarte: FC = () => {
                   </Select>
                 </InputGroup>
                 <InputGroup>
-                  <InputLeftAddon>頭皮の状態</InputLeftAddon>
+                  <InputLeftAddon bg={colors.bgLabel}>
+                    頭皮の状態
+                  </InputLeftAddon>
                   <Select id="scalp_condition" value="普通">
                     <option value="指定なし">指定なし</option>
                     <option value="乾燥">乾燥</option>
@@ -250,7 +254,9 @@ export const NewKarte: FC = () => {
                   </Select>
                 </InputGroup>
                 <InputGroup>
-                  <InputLeftAddon>その他（アレルギー等）</InputLeftAddon>
+                  <InputLeftAddon bg={colors.bgLabel}>
+                    その他（アレルギー等）
+                  </InputLeftAddon>
                   <Input type="text" value="花粉" id="allergy" />
                 </InputGroup>
               </AccordionPanel>
@@ -266,7 +272,7 @@ export const NewKarte: FC = () => {
               </h2>
               <AccordionPanel pb={4}>
                 <InputGroup>
-                  <InputLeftAddon>髪の長さ</InputLeftAddon>
+                  <InputLeftAddon bg={colors.bgLabel}>髪の長さ</InputLeftAddon>
                   <Select id="hair_length" value="ロング：肩よりも長い">
                     <option value="指定なし">指定なし</option>
                     <option value="ベリーショート：耳が完全に見えるような短さ">
@@ -287,13 +293,15 @@ export const NewKarte: FC = () => {
                   </Select>
                 </InputGroup>
                 <InputGroup>
-                  <InputLeftAddon>髪のカラー</InputLeftAddon>
+                  <InputLeftAddon bg={colors.bgLabel}>
+                    髪のカラー
+                  </InputLeftAddon>
                   <Select id="hair_color" value="ピンク">
                     {getEnumOptionsText(Object.entries(HairColor))}
                   </Select>
                 </InputGroup>
                 <InputGroup>
-                  <InputLeftAddon>パーマ</InputLeftAddon>
+                  <InputLeftAddon bg={colors.bgLabel}>パーマ</InputLeftAddon>
                   <Select id="hair_parm" value="カール">
                     <option value="指定なし">指定なし</option>
                     <option value="ストレート">ストレート</option>
