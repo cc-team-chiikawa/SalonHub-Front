@@ -3,4 +3,5 @@ export const colors = {
   bgMain: "brandGray.0",
   bgButton: "brandOrange.500",
   fgButton: "white",
+  border: "rgba(105, 145, 172, 1)",
 };
