@@ -35,6 +35,13 @@ import { karte } from "@/types";
 import MenuBar from "@/componets/MenuBar/MenuBar";
 import { Header } from "@/componets/Header";
 import { keyframes } from "@emotion/react";
+import { testStyleImage } from "./testStyleImage";
+const testCardNumber: string = "4242424242424242";
+const testPostData = {
+  cardNumber: testCardNumber,
+  image: testStyleImage,
+};
+const devURI: string = "http://localhost:3000";
 
 const fadeInFromLeftAnimation = keyframes`
   0% {
@@ -47,9 +54,39 @@ const fadeInFromLeftAnimation = keyframes`
   }
 `;
 
+// knexでデータベースに登録するAPIを叩く関数
+// async function upload(postData: object) {
+
+async function uploadStyle(postData: object) {
+  try {
+    const response = await fetch(devURI + "/api/image/upload", {
+      method: "POST",
+      mode: "cors",
+      body: JSON.stringify(postData), // ボディにデータをJSON形式で設定
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    // return await response.text();
+    return await response.json();
+  } catch (err) {
+    console.error("Fetch Error = ", err);
+  }
+}
+
 const Sent = () => {
+  const [isUploaded, setIsUploaded] = useState<boolean>(false);
   useEffect(() => {
     window.scrollTo(0, 0); // 画面を一番上にスクロールさせます
+    Promise.all([uploadStyle(testPostData)]).then((res) => {
+      console.log(res);
+      setIsUploaded(true);
+    });
   }, []);
 
   return (
@@ -63,8 +100,7 @@ const Sent = () => {
         marginTop={"12rem"}
         css={{
           animation: `${fadeInFromLeftAnimation} 1s ease-out forwards`,
-        }}
-      >
+        }}>
         <Text fontSize={"2rem"} style={{ fontStyle: "italic" }}>
           Thank you!
         </Text>
