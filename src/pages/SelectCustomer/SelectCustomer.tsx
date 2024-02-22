@@ -41,7 +41,7 @@ export const SelectCustomer: FC = () => {
       <Container maxW="none" p="2rem" bg={colors.bgAll} h="100%">
         <VStack gap="2rem" bg={colors.bgMain} p="1rem" borderRadius="1rem">
           <Text fontSize="1.5rem" fontWeight="bold">
-            お客様の種類の選択
+            カルテの作成モードの選択
           </Text>
           <form onSubmit={handleSubmit(onSubmit)}>
             <VStack gap="2rem">
@@ -82,7 +82,7 @@ export const SelectCustomer: FC = () => {
           <Link as={ReactRouterLink} to="/customers/new-karte">
             <Box position="relative" padding="10" width="100%">
               <Divider borderWidth="1px" borderColor={colors.border} />
-              <AbsoluteCenter bg="white" px="4" width="5rem">
+              <AbsoluteCenter bg={colors.bgMain} px="4" width="5rem">
                 または
               </AbsoluteCenter>
             </Box>

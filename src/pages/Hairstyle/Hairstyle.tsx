@@ -107,7 +107,7 @@ const Hairstyle = () => {
       <MenuBar />
       <Container maxW="none" p={"2rem"} bg={"brandGray.500"} h={"100%"}>
         <VStack alignItems={"start"} gap={"1rem"}>
-          <Header customer="TODO dummy" />
+          <Header name="TODO dummy" />
         </VStack>
         <VStack gap={"2rem"}>
           <Text fontSize={"1.5rem"} fontWeight={"bold"}>
@@ -167,7 +167,8 @@ const Hairstyle = () => {
                 pl={"4rem"}
                 pr={"4rem"}
                 borderRadius={"5rem"}
-                height={"3rem"}>
+                height={"3rem"}
+              >
                 送信
               </Button>
             </Link>

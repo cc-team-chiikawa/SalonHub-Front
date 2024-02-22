@@ -59,7 +59,7 @@ export const Customer: FC = () => {
         <MenuBar />
         <Container maxW="none" p={"2rem"} bg={"brandGray.500"} h={"100%"}>
           <VStack alignItems={"start"} gap={"1rem"}>
-            <Header customer={customer} />
+            <Header name={customer.name} />
             <MemberInformation customer={customer} />
             <KarteInformation customer={customer} />
             <HistoryInformation customer={customer} />
