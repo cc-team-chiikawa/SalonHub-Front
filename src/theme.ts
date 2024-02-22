@@ -4,4 +4,5 @@ export const colors = {
   bgButton: "brandOrange.500",
   fgButton: "white",
   border: "rgba(105, 145, 172, 1)",
+  bgImage: "lightblue",
 };
