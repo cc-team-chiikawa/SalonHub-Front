@@ -63,6 +63,8 @@ export const NewKarte: FC = () => {
     const card_number = document.getElementById(
       "card_number"
     ) as HTMLInputElement;
+    const name = document.getElementById("name") as HTMLInputElement;
+    const kana = document.getElementById("kana") as HTMLInputElement;
     const birthday = document.getElementById("birthday") as HTMLInputElement;
     const gender = document.getElementById("gender") as HTMLInputElement;
     const phone_number = document.getElementById(
@@ -98,17 +100,6 @@ export const NewKarte: FC = () => {
     const hair_parm = document.getElementById("hair_parm") as HTMLInputElement;
 
     //objectにセット
-    let customer = {
-      card_number: card_number.value,
-      birthday: new Date(birthday.value),
-      gender: gender.value,
-      phone_number: phone_number.value,
-      email: email.value,
-      hair_thickness: hair_thickness.value,
-      hair_hardness: hair_hardness.value,
-      hair_amount: hair_amount.value,
-      allergy: allergy.value,
-    };
     let karte = {
       adress: adress.value,
       hair_curly: hair_curly.value,
@@ -120,7 +111,23 @@ export const NewKarte: FC = () => {
       hair_color: hair_color.value,
       perm: hair_parm.value,
     };
-
+    let customer = {
+      card_number: card_number.value,
+      birthday: new Date(birthday.value),
+      name: name.value,
+      kana: kana.value,
+      gender: gender.value,
+      phone_number: phone_number.value,
+      adress: email.value,
+      hair_thickness: Number(hair_thickness.value),
+      hair_hardness: Number(hair_hardness.value),
+      hair_amount: Number(hair_amount.value),
+      allergy: allergy.value,
+      // karte変数の内容をmemo1にJSON形式で格納
+      memo1: JSON.stringify(karte),
+      // todays_cutの内容をmemo2にJSON形式で格納
+      memo2: JSON.stringify(todays_cut),
+    };
     context.setCustomer(customer);
   }
 
@@ -151,11 +158,6 @@ export const NewKarte: FC = () => {
               </AccordionButton>
             </h2>
             <AccordionPanel pb={4}>
-              {/* <InputGroup>
-              <InputLeftAddon>ID</InputLeftAddon>
-              <Input type="text" value={customer?.id} />
-            </InputGroup> */}
-
               <InputGroup>
                 <InputLeftAddon>会員番号</InputLeftAddon>
                 <Input
@@ -164,6 +166,14 @@ export const NewKarte: FC = () => {
                   value={customer?.card_number}
                   id="card_number"
                 />
+              </InputGroup>
+              <InputGroup>
+                <InputLeftAddon>名前</InputLeftAddon>
+                <Input type="text" value={customer?.name} id="name" />
+              </InputGroup>
+              <InputGroup>
+                <InputLeftAddon>カナ</InputLeftAddon>
+                <Input type="text" value={customer?.kana} id="kana" />
               </InputGroup>
               <InputGroup>
                 <InputLeftAddon>生年月日</InputLeftAddon>
@@ -230,16 +240,12 @@ export const NewKarte: FC = () => {
             <AccordionPanel pb={4}>
               <InputGroup>
                 <InputLeftAddon>髪の量</InputLeftAddon>
-                {/* EnumのHairAmountを使って
-                 optionの内容をループで作成してください。 */}
                 <Select id="hair_amount">
                   {getEnumOptions(Object.entries(HairAmount))}
                 </Select>
               </InputGroup>
               <InputGroup>
                 <InputLeftAddon>髪の硬さ</InputLeftAddon>
-                {/* EnumのHairHardnessを使って
-                 optionの内容をループで作成してください。 */}
                 <Select id="hair_hardness">
                   {getEnumOptions(Object.entries(HairHardness))}
                 </Select>
