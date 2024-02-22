@@ -85,17 +85,15 @@ const CustomersList = () => {
     <Container maxW="none" p={0} h={"100%"}>
       <MenuBar />
       <Container maxW="none" p={"2rem"} bg={"brandGray.500"} h={"100%"}>
-        <VStack gap={"2rem"}>
-          <Text fontSize={"1.5rem"} fontWeight={"bold"}>
-            詳細を表示したいお客様を選択してください
-          </Text>
-        </VStack>
         <VStack
           gap={"2rem"}
           bg={"brandGray.0"}
           p={"1rem"}
           borderRadius={"1rem"}
         >
+          <Text fontSize={"1.5rem"} fontWeight={"bold"}>
+            詳細を表示したいお客様を選択してください
+          </Text>
           <Table variant="simple">
             <Thead>
               <Tr>
