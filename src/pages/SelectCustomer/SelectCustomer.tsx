@@ -16,6 +16,7 @@ import { createApi } from "@/apis/createApi";
 import { colors } from "@/theme";
 import MenuBar from "@/componets/MenuBar/MenuBar";
 import { loginInformation } from "@/types";
+import { color } from "framer-motion";
 
 export const SelectCustomer: FC = () => {
   const navigate = useNavigate();

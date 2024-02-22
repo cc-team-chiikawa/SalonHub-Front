@@ -308,8 +308,8 @@ export const NewKarte: FC = () => {
           <Link as={ReactRouterLink} to="/customers/hairstyle">
             <Button
               mt={4}
-              bg={"brandOrange.500"}
-              color={"white"}
+              bg={colors.bgButton}
+              color={colors.fgButton}
               pl={"4rem"}
               pr={"4rem"}
               borderRadius={"5rem"}
