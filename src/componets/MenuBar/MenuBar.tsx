@@ -3,12 +3,13 @@ import { HStack, Spacer, Text } from "@chakra-ui/react";
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import { colors } from "@/theme";
 
 export const MenuBar: FC = () => {
   return (
     <HStack
-      bg={"brandOrange.100"}
-      color={"brandOrange.500"}
+      bg={colors.bgMenuBar}
+      color={colors.fgMenuBar}
       h={"4rem"}
       p={"1rem"}
     >

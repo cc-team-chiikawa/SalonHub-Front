@@ -44,6 +44,9 @@ import MenuBar from "@/componets/MenuBar/MenuBar";
 import { Header } from "@/componets/Header";
 
 import dummyImg from "@/assets/dummy/input.png";
+import { colors } from "@/theme";
+import { useMyContext } from "@/MyContext";
+import { Customer } from "../Customer";
 
 const Hairstyle = () => {
   const [styles, setStyles] = useState<Array<string | undefined>>([]);
@@ -55,6 +58,9 @@ const Hairstyle = () => {
     tags: ["金髪", "「鋼の錬金術師」のエル風"],
   };
   const devURI: string = "http://localhost:3000";
+
+  const context = useMyContext();
+  const { customer } = context;
 
   async function fetchImage(postData: object) {
     try {
@@ -105,11 +111,11 @@ const Hairstyle = () => {
   return (
     <Container maxW="none" p={0} h={"100%"}>
       <MenuBar />
-      <Container maxW="none" p={"2rem"} bg={"brandGray.500"} h={"100%"}>
+      <Container maxW="none" p={"2rem"} bg={colors.bgAll} h={"100%"}>
         <VStack alignItems={"start"} gap={"1rem"}>
-          <Header customer="TODO dummy" />
+          <Header name={customer?.name} />
         </VStack>
-        <VStack gap={"2rem"}>
+        <VStack gap="2rem" bg={colors.bgMain} p="1rem" borderRadius="1rem">
           <Text fontSize={"1.5rem"} fontWeight={"bold"}>
             イメージに近い髪型を選択してください
           </Text>
@@ -162,12 +168,13 @@ const Hairstyle = () => {
             <Link as={ReactRouterLink} to="/customers/sent">
               <Button
                 mt={4}
-                bg={"brandOrange.500"}
-                color={"white"}
+                bg={colors.bgButton}
+                color={colors.fgButton}
                 pl={"4rem"}
                 pr={"4rem"}
                 borderRadius={"5rem"}
-                height={"3rem"}>
+                height={"3rem"}
+              >
                 送信
               </Button>
             </Link>

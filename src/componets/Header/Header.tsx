@@ -39,16 +39,15 @@ import { Slider, SliderWithText } from "../Slider";
 import { WomanIcon } from "../../icons/index";
 
 type props = {
-  customer: customer;
+  name: string;
 };
 
-export const Header: FC<props> = ({ customer }) => {
+export const Header: FC<props> = ({ name }) => {
   return (
     <VStack alignItems={"start"}>
-      <Text
-        fontSize={"1.25rem"}
-        fontWeight={"bold"}
-      >{`${customer.name} 様`}</Text>
+      <Text fontSize={"1.25rem"} fontWeight={"bold"}>{`${
+        name ?? "未設定"
+      } 様`}</Text>
     </VStack>
   );
 };

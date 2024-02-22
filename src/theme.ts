@@ -1,0 +1,18 @@
+export const colors = {
+  // bgAll: "brandGray.500",
+  // bgMain: "brandGray.0",
+  // bgButton: "brandOrange.500",
+  // fgButton: "white",
+  // border: "rgba(105, 145, 172, 1)",
+  // bgImage: "lightblue",
+  // bgMenuBar: "brandOrange.100",
+  // fgMenuBar: "brandOrange.500",
+  bgAll: "rgba(232,255,193)",
+  bgMain: "brandGray.0",
+  bgButton: "rgba(2, 120, 174, 1)",
+  fgButton: "white",
+  border: "rgba(105, 145, 172, 1)",
+  bgImage: "rgba(232,255,193)",
+  bgMenuBar: "rgba(2, 120, 174, 1)",
+  fgMenuBar: "white",
+};

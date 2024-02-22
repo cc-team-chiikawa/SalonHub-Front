@@ -1,63 +1,33 @@
-import { Container, Button, Link } from "@chakra-ui/react";
 import {
-  Heading,
+  Container,
+  Button,
+  Link,
   Box,
   Text,
   Select,
-  RadioGroup,
-  Radio,
-  Stack,
-  Flex,
-} from "@chakra-ui/react";
-import {
   Accordion,
   AccordionItem,
   AccordionButton,
   AccordionPanel,
   AccordionIcon,
-} from "@chakra-ui/react";
-import {
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  FormHelperText,
   Input,
   InputGroup,
   InputLeftAddon,
-} from "@chakra-ui/react";
-import {
   VStack,
-  HStack,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
 } from "@chakra-ui/react";
 import { FC, useEffect, useMemo, useState } from "react";
 import { useParams, Link as ReactRouterLink } from "react-router-dom";
-import { customer } from "../../types/customer";
-import { createApi } from "@/apis/createApi";
 import { useMyContext } from "@/MyContext";
 import { HairAmount } from "../../types/enum";
 import { gender } from "@/types/enum";
 import { HairHardness } from "@/types/enum";
 import { HairThickness } from "@/types/enum";
 import { HairColor } from "../../types/enum";
+import { MenuBar } from "@/componets/MenuBar";
+import { Header } from "@/componets/Header";
+import { colors } from "@/theme";
 
 export const NewKarte: FC = () => {
-  const [customer, setCustomer] = useState<customer>();
-  const { id } = useParams<{ id: string }>();
-  const api = useMemo(() => createApi(), []);
-
-  useEffect(() => {
-    const getData = async () => {
-      const customer = await api.getCustomer(id!);
-      setCustomer(customer);
-    };
-
-    getData();
-  }, [api, id]);
   const context = useMyContext();
 
   function getInputValue() {
@@ -106,12 +76,12 @@ export const NewKarte: FC = () => {
       face_shape: face_shape.value,
       scalp_condition: scalp_condition.value,
     };
-    let todays_cut = {
+    const todays_cut = {
       hair_length: hair_length.value,
       hair_color: hair_color.value,
       perm: hair_parm.value,
     };
-    let customer = {
+    const customer = {
       card_number: card_number.value,
       birthday: new Date(birthday.value),
       name: name.value,
@@ -144,7 +114,7 @@ export const NewKarte: FC = () => {
   function getEnumOptionsText(array: any[]) {
     return array
       .filter(([key]) => isNaN(Number(key)))
-      .map(([key, value]) => {
+      .map(([key]) => {
         return <option value={key}>{key}</option>;
       });
   }
@@ -159,217 +129,198 @@ export const NewKarte: FC = () => {
   }
 
   return (
-    <Container alignItems={"center"} pt={"10rem"}>
-      <VStack gap={"2rem"}>
-        <Heading fontSize="xl">{customer?.kana}</Heading>
-        <Heading>{customer?.name}</Heading>
-        <Text fontSize={"1.5rem"} fontWeight={"bold"}>
-          カルテの作成
-        </Text>
-        <Accordion defaultIndex={[0, 1, 2]} allowMultiple>
-          <AccordionItem>
-            <h2>
-              <AccordionButton>
-                <Box as="span" flex="1" textAlign="left">
-                  会員情報
-                </Box>
-                <AccordionIcon />
-              </AccordionButton>
-            </h2>
-            <AccordionPanel pb={4}>
-              <InputGroup>
-                <InputLeftAddon>会員番号</InputLeftAddon>
-                <Input
-                  type="number"
-                  isReadOnly
-                  value={generateRandomDigits()}
-                  id="card_number"
-                />
-              </InputGroup>
-              <InputGroup>
-                <InputLeftAddon>名前</InputLeftAddon>
-                <Input type="text" value="高橋 朱美" id="name" />
-              </InputGroup>
-              <InputGroup>
-                <InputLeftAddon>カナ</InputLeftAddon>
-                <Input type="text" value="タカハシ アケミ" id="kana" />
-              </InputGroup>
-              <InputGroup>
-                <InputLeftAddon>生年月日</InputLeftAddon>
-                <Input type="date" value="2000-10-01" id="birthday" />
-              </InputGroup>
-              <InputGroup>
-                <InputLeftAddon>性別</InputLeftAddon>
-                <Select id="gender" value="1">
-                  {getEnumOptionsNumber(Object.entries(gender))}
-                </Select>
-              </InputGroup>
-              <InputGroup>
-                <InputLeftAddon>電話番号</InputLeftAddon>
-                <Input
-                  type="tel"
-                  value="090-9999-9999"
-                  placeholder="090-1234-5678"
-                  id="phone_number"
-                />
-              </InputGroup>
-              <InputGroup>
-                <InputLeftAddon>メールアドレス</InputLeftAddon>
-                <Input type="adress" value="sample@sample.jp" id="adress" />
-              </InputGroup>
-              <InputGroup>
-                <InputLeftAddon>住所</InputLeftAddon>
-                <Input type="text" value="港区XXXXXXXXXXX" id="adress" />
-              </InputGroup>
-              {/* <InputGroup>
-              <InputLeftAddon>メモ1</InputLeftAddon>
-              <Input type="text" value={customer?.memo1} />
-            </InputGroup>
-            <InputGroup>
-              <InputLeftAddon>メモ2</InputLeftAddon>
-              <Input type="text" value={customer?.memo2} />
-            </InputGroup>
-            <InputGroup>
-              <InputLeftAddon>メモ3</InputLeftAddon>
-              <Input type="text" value={customer?.memo3} />
-            </InputGroup>
-            <InputGroup>
-              <InputLeftAddon>メモ4</InputLeftAddon>
-              <Input type="text" value={customer?.memo4} />
-            </InputGroup>
-            <InputGroup>
-              <InputLeftAddon>メモ5</InputLeftAddon>
-              <Input type="text" value={customer?.memo5} />
-            </InputGroup> */}
-            </AccordionPanel>
-          </AccordionItem>
-          <AccordionItem>
-            <h2>
-              <AccordionButton>
-                <Box as="span" flex="1" textAlign="left">
-                  お客様のカルテ
-                </Box>
-                <AccordionIcon />
-              </AccordionButton>
-            </h2>
-            <AccordionPanel pb={4}>
-              <InputGroup>
-                <InputLeftAddon>髪の量</InputLeftAddon>
-                <Select id="hair_amount" value="2">
-                  {getEnumOptionsNumber(Object.entries(HairAmount))}
-                </Select>
-              </InputGroup>
-              <InputGroup>
-                <InputLeftAddon>髪の硬さ</InputLeftAddon>
-                <Select id="hair_hardness" value="1">
-                  {getEnumOptionsNumber(Object.entries(HairHardness))}
-                </Select>
-              </InputGroup>
-              <InputGroup>
-                <InputLeftAddon>髪の太さ</InputLeftAddon>
-                <Select id="hair_thickness" value="1">
-                  {getEnumOptionsNumber(Object.entries(HairThickness))}
-                </Select>
-              </InputGroup>
-              <InputGroup>
-                <InputLeftAddon>クセ</InputLeftAddon>
-                <Select id="hair_curly">
-                  <option value="指定なし">指定なし</option>
-                  <option value="少し">少し</option>
-                  <option value="強い">強い</option>
-                </Select>
-              </InputGroup>
-              <InputGroup>
-                <InputLeftAddon>顔の形</InputLeftAddon>
-                <Select id="face_shape" value="逆三角">
-                  <option value="指定なし">指定なし</option>
-                  <option value="丸型">丸型</option>
-                  <option value="卵型">卵型</option>
-                  <option value="四角">四角</option>
-                  <option value="逆三角">逆三角</option>
-                  <option value="ベース">ベース</option>
-                </Select>
-              </InputGroup>
-              <InputGroup>
-                <InputLeftAddon>頭皮の状態</InputLeftAddon>
-                <Select id="scalp_condition" value="普通">
-                  <option value="指定なし">指定なし</option>
-                  <option value="乾燥">乾燥</option>
-                  <option value="普通">普通</option>
-                  <option value="脂性">脂性</option>
-                </Select>
-              </InputGroup>
-              <InputGroup>
-                <InputLeftAddon>その他（アレルギー等）</InputLeftAddon>
-                <Input type="text" value="花粉" id="allergy" />
-              </InputGroup>
-            </AccordionPanel>
-          </AccordionItem>
-          <AccordionItem>
-            <h2>
-              <AccordionButton>
-                <Box as="span" flex="1" textAlign="left">
-                  本日のカット
-                </Box>
-                <AccordionIcon />
-              </AccordionButton>
-            </h2>
-            <AccordionPanel pb={4}>
-              <InputGroup>
-                <InputLeftAddon>髪の長さ</InputLeftAddon>
-                <Select id="hair_length" value="ロング：肩よりも長い">
-                  <option value="指定なし">指定なし</option>
-                  <option value="ベリーショート：耳が完全に見えるような短さ">
-                    ベリーショート：耳が完全に見えるような短さ
-                  </option>
-                  <option value="ショート：首周りで切りそろえられた長さ">
-                    ショート：首周りで切りそろえられた長さ
-                  </option>
-                  <option value="ボブ：かごのラインあたりでカットされた長さ">
-                    ボブ：かごのラインあたりでカットされた長さ
-                  </option>
-                  <option value="ミディアム：首の付け根から肩にかかる長さ">
-                    ミディアム：首の付け根から肩にかかる長さ
-                  </option>
-                  <option value="ロング：肩よりも長い">
-                    ロング：肩よりも長い
-                  </option>
-                </Select>
-              </InputGroup>
-              <InputGroup>
-                <InputLeftAddon>髪のカラー</InputLeftAddon>
-                <Select id="hair_color" value="ピンク">
-                  {getEnumOptionsText(Object.entries(HairColor))}
-                </Select>
-              </InputGroup>
-              <InputGroup>
-                <InputLeftAddon>パーマ</InputLeftAddon>
-                <Select id="hair_parm" value="カール">
-                  <option value="指定なし">指定なし</option>
-                  <option value="ストレート">ストレート</option>
-                  <option value="ウェーブ">ウェーブ</option>
-                  <option value="カール">カール</option>
-                  <option value="ボリュームアップ">ボリュームアップ</option>
-                </Select>
-              </InputGroup>
-            </AccordionPanel>
-          </AccordionItem>
-        </Accordion>
-        <Link as={ReactRouterLink} to="/customers/hairstyle">
-          <Button
-            mt={4}
-            bg={"brandOrange.500"}
-            color={"white"}
-            pl={"4rem"}
-            pr={"4rem"}
-            borderRadius={"5rem"}
-            height={"3rem"}
-            onClick={getInputValue}
-          >
-            髪型のイメージ選択へ
-          </Button>
-        </Link>
-      </VStack>
+    <Container maxW="none" p={0} h="100%">
+      <MenuBar />
+      <Container maxW="none" p={"2rem"} bg={colors.bgAll} h={"100%"}>
+        <VStack gap="2rem" bg={colors.bgMain} p="1rem" borderRadius="1rem">
+          <Text fontSize={"1.5rem"} fontWeight={"bold"}>
+            カルテの作成
+          </Text>
+          <Accordion defaultIndex={[0, 1, 2]} allowMultiple>
+            <AccordionItem>
+              <h2>
+                <AccordionButton>
+                  <Box as="span" flex="1" textAlign="left">
+                    会員情報
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
+              </h2>
+              <AccordionPanel pb={4}>
+                <InputGroup>
+                  <InputLeftAddon>会員番号</InputLeftAddon>
+                  <Input
+                    type="number"
+                    isReadOnly
+                    value={generateRandomDigits()}
+                    id="card_number"
+                  />
+                </InputGroup>
+                <InputGroup>
+                  <InputLeftAddon>名前</InputLeftAddon>
+                  <Input type="text" value="高橋 朱美" id="name" />
+                </InputGroup>
+                <InputGroup>
+                  <InputLeftAddon>カナ</InputLeftAddon>
+                  <Input type="text" value="タカハシ アケミ" id="kana" />
+                </InputGroup>
+                <InputGroup>
+                  <InputLeftAddon>生年月日</InputLeftAddon>
+                  <Input type="date" value="2000-10-01" id="birthday" />
+                </InputGroup>
+                <InputGroup>
+                  <InputLeftAddon>性別</InputLeftAddon>
+                  <Select id="gender" value="1">
+                    {getEnumOptionsNumber(Object.entries(gender))}
+                  </Select>
+                </InputGroup>
+                <InputGroup>
+                  <InputLeftAddon>電話番号</InputLeftAddon>
+                  <Input
+                    type="tel"
+                    value="090-9999-9999"
+                    placeholder="090-1234-5678"
+                    id="phone_number"
+                  />
+                </InputGroup>
+                <InputGroup>
+                  <InputLeftAddon>メールアドレス</InputLeftAddon>
+                  <Input type="adress" value="sample@sample.jp" id="adress" />
+                </InputGroup>
+                <InputGroup>
+                  <InputLeftAddon>住所</InputLeftAddon>
+                  <Input type="text" value="港区XXXXXXXXXXX" id="adress" />
+                </InputGroup>
+              </AccordionPanel>
+            </AccordionItem>
+            <AccordionItem>
+              <h2>
+                <AccordionButton>
+                  <Box as="span" flex="1" textAlign="left">
+                    お客様の体質
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
+              </h2>
+              <AccordionPanel pb={4}>
+                <InputGroup>
+                  <InputLeftAddon>髪の量</InputLeftAddon>
+                  <Select id="hair_amount" value="2">
+                    {getEnumOptionsNumber(Object.entries(HairAmount))}
+                  </Select>
+                </InputGroup>
+                <InputGroup>
+                  <InputLeftAddon>髪の硬さ</InputLeftAddon>
+                  <Select id="hair_hardness" value="1">
+                    {getEnumOptionsNumber(Object.entries(HairHardness))}
+                  </Select>
+                </InputGroup>
+                <InputGroup>
+                  <InputLeftAddon>髪の太さ</InputLeftAddon>
+                  <Select id="hair_thickness" value="1">
+                    {getEnumOptionsNumber(Object.entries(HairThickness))}
+                  </Select>
+                </InputGroup>
+                <InputGroup>
+                  <InputLeftAddon>クセ</InputLeftAddon>
+                  <Select id="hair_curly">
+                    <option value="指定なし">指定なし</option>
+                    <option value="少し">少し</option>
+                    <option value="強い">強い</option>
+                  </Select>
+                </InputGroup>
+                <InputGroup>
+                  <InputLeftAddon>顔の形</InputLeftAddon>
+                  <Select id="face_shape" value="逆三角">
+                    <option value="指定なし">指定なし</option>
+                    <option value="丸型">丸型</option>
+                    <option value="卵型">卵型</option>
+                    <option value="四角">四角</option>
+                    <option value="逆三角">逆三角</option>
+                    <option value="ベース">ベース</option>
+                  </Select>
+                </InputGroup>
+                <InputGroup>
+                  <InputLeftAddon>頭皮の状態</InputLeftAddon>
+                  <Select id="scalp_condition" value="普通">
+                    <option value="指定なし">指定なし</option>
+                    <option value="乾燥">乾燥</option>
+                    <option value="普通">普通</option>
+                    <option value="脂性">脂性</option>
+                  </Select>
+                </InputGroup>
+                <InputGroup>
+                  <InputLeftAddon>その他（アレルギー等）</InputLeftAddon>
+                  <Input type="text" value="花粉" id="allergy" />
+                </InputGroup>
+              </AccordionPanel>
+            </AccordionItem>
+            <AccordionItem>
+              <h2>
+                <AccordionButton>
+                  <Box as="span" flex="1" textAlign="left">
+                    本日の施術
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
+              </h2>
+              <AccordionPanel pb={4}>
+                <InputGroup>
+                  <InputLeftAddon>髪の長さ</InputLeftAddon>
+                  <Select id="hair_length" value="ロング：肩よりも長い">
+                    <option value="指定なし">指定なし</option>
+                    <option value="ベリーショート：耳が完全に見えるような短さ">
+                      ベリーショート：耳が完全に見えるような短さ
+                    </option>
+                    <option value="ショート：首周りで切りそろえられた長さ">
+                      ショート：首周りで切りそろえられた長さ
+                    </option>
+                    <option value="ボブ：かごのラインあたりでカットされた長さ">
+                      ボブ：かごのラインあたりでカットされた長さ
+                    </option>
+                    <option value="ミディアム：首の付け根から肩にかかる長さ">
+                      ミディアム：首の付け根から肩にかかる長さ
+                    </option>
+                    <option value="ロング：肩よりも長い">
+                      ロング：肩よりも長い
+                    </option>
+                  </Select>
+                </InputGroup>
+                <InputGroup>
+                  <InputLeftAddon>髪のカラー</InputLeftAddon>
+                  <Select id="hair_color" value="ピンク">
+                    {getEnumOptionsText(Object.entries(HairColor))}
+                  </Select>
+                </InputGroup>
+                <InputGroup>
+                  <InputLeftAddon>パーマ</InputLeftAddon>
+                  <Select id="hair_parm" value="カール">
+                    <option value="指定なし">指定なし</option>
+                    <option value="ストレート">ストレート</option>
+                    <option value="ウェーブ">ウェーブ</option>
+                    <option value="カール">カール</option>
+                    <option value="ボリュームアップ">ボリュームアップ</option>
+                  </Select>
+                </InputGroup>
+              </AccordionPanel>
+            </AccordionItem>
+          </Accordion>
+          <Link as={ReactRouterLink} to="/customers/hairstyle">
+            <Button
+              mt={4}
+              bg={colors.bgButton}
+              color={colors.fgButton}
+              pl={"4rem"}
+              pr={"4rem"}
+              borderRadius={"5rem"}
+              height={"3rem"}
+              onClick={getInputValue}
+            >
+              髪型イメージ選択へ
+            </Button>
+          </Link>
+        </VStack>
+      </Container>
     </Container>
   );
 };
