@@ -2,7 +2,6 @@ import { ChevronLeftIcon, ExternalLinkIcon } from "@chakra-ui/icons";
 import { HStack, Spacer, Text, Image } from "@chakra-ui/react";
 import { FC } from "react";
 import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
 import { colors } from "@/theme";
 import headerIcon from "@/assets/Header_Icon.png";
 
