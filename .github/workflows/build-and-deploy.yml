@@ -39,4 +39,4 @@ jobs:
 
       # S3へのデプロイを実行
       - name: Deploy to S3
-        run: aws s3 sync ./dist s3://${{ secrets.AWS_S3_BUCKET }} --acl public-read --delete
+        run: aws s3 sync ./dist s3://${{ secrets.AWS_S3_BUCKET }} --delete
