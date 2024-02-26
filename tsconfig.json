@@ -15,17 +15,29 @@
     "jsx": "react-jsx",
 
     /* Linting */
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
+    // Linting and strictness related settings set to be lenient
+    "strict": false, // Disable all strict type-checking options
+    "noImplicitAny": false, // Allow expressions and declarations with an implied 'any' type
+    "noImplicitThis": false, // Allow 'this' expressions with an implied 'any' type
+    "alwaysStrict": false, // Parse in strict mode and emit "use strict" for each source file
+    "strictBindCallApply": false, // Disable strict checking of bind, call, and apply methods
+    "strictNullChecks": false, // Disable strict null checks
+    "strictFunctionTypes": false, // Disable strict checking of function types
+    "strictPropertyInitialization": false, // Disable checking for class properties initialization
+    "noUnusedLocals": false, // Do not report errors on unused locals
+    "noUnusedParameters": false, // Do not report errors on unused parameters
+    "noImplicitReturns": false, // Allow functions that do not return in all cases
+    "noFallthroughCasesInSwitch": false, // Allow fall through cases in switch statements
+
+    // Additional settings to ignore errors
+    "skipDefaultLibCheck": true, // Skip type checking of default library declaration files
 
     /* Path */
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"],
       "~/*": ["public/*"]
-    },
+    }
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

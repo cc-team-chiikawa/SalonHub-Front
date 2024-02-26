@@ -43,7 +43,6 @@ import { useParams, Link as ReactRouterLink } from "react-router-dom";
 import { customer } from "../../types/customer";
 import { createApi } from "@/apis/createApi";
 import { MemberInformation } from "@/componets/MemberInformation";
-import { KartesList } from "@/componets/KartesList";
 import { karte } from "@/types";
 import MenuBar from "@/componets/MenuBar/MenuBar";
 import { Header } from "@/componets/Header";

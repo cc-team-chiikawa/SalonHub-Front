@@ -20,6 +20,15 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Install unzip
+        run: sudo apt-get update && sudo apt-get install -y unzip
+
+      - name: Install AWS CLI
+        run: |
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip -o awscliv2.zip
+          sudo ./aws/install --update
+
       # AWSの認証情報を設定
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -30,4 +39,4 @@ jobs:
 
       # S3へのデプロイを実行
       - name: Deploy to S3
-        run: aws s3 sync ./dist s3://${{ secrets.AWS_S3_BUCKET }} --acl public-read --delete
+        run: aws s3 sync ./dist s3://${{ secrets.AWS_S3_BUCKET }} --delete
