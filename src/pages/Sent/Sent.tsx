@@ -43,7 +43,7 @@ const testPostData = {
   cardNumber: testCardNumber,
   image: testStyleImage,
 };
-const devURI: string = "http://localhost:3000";
+const devURI: string = "http://34.206.149.92:3000";
 
 const fadeInFromLeftAnimation = keyframes`
   0% {
@@ -104,8 +104,7 @@ const Sent = () => {
           marginTop={"12rem"}
           css={{
             animation: `${fadeInFromLeftAnimation} 1s ease-out forwards`,
-          }}
-        >
+          }}>
           <Text fontSize={"2rem"} style={{ fontStyle: "italic" }}>
             Thank you!
           </Text>

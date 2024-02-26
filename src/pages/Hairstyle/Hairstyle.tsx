@@ -55,9 +55,9 @@ const Hairstyle = () => {
   // const prompt = []; フロント実装
   const postData = {
     // テスト用のダミーデータ
-    tags: ["金髪", "「鋼の錬金術師」のエル風"],
+    tags: [],
   };
-  const devURI: string = "http://localhost:3000";
+  const devURI: string = "http://34.206.149.92:3000";
 
   const context = useMyContext();
   const { customer } = context;
@@ -84,9 +84,9 @@ const Hairstyle = () => {
   }
 
   const images = [
-    { id: "1", image: dummyImg },
-    { id: "2", image: dummyImg },
-    { id: "3", image: dummyImg },
+    // { id: "1", image: dummyImg },
+    // { id: "2", image: dummyImg },
+    // { id: "3", image: dummyImg },
   ];
 
   const handleImageClick = (imageId: string) => {
@@ -95,13 +95,17 @@ const Hairstyle = () => {
 
   useEffect(() => {
     //// APIコスト節約のため一時コメントアウト ////
-    // Promise.all([fetchImage(postData)]) //　取得したい画像枚数分引数追加　★1にした
-    //   .then((data) => {
-    //     setStyles(data);
-    //   })
-    //   .catch((err) => {
-    //     console.error("Fetch Error = ", err);
-    //   });
+    Promise.all([
+      fetchImage(postData),
+      fetchImage(postData),
+      fetchImage(postData),
+    ]) //　取得したい画像枚数分引数追加　★1にした
+      .then((data) => {
+        setStyles(data);
+      })
+      .catch((err) => {
+        console.error("Fetch Error = ", err);
+      });
     //// 暫定遅延用 ////
     // setInterval(() => {
     //   addLoadingCount();
@@ -170,8 +174,7 @@ const Hairstyle = () => {
                 pl={"4rem"}
                 pr={"4rem"}
                 borderRadius={"5rem"}
-                height={"3rem"}
-              >
+                height={"3rem"}>
                 送信
               </Button>
             </Link>

@@ -199,7 +199,7 @@ export const NewKarte: FC = () => {
               <h2>
                 <AccordionButton>
                   <Box as="span" flex="1" textAlign="left">
-                    お客様の体質
+                    お客様の髪質
                   </Box>
                   <AccordionIcon />
                 </AccordionButton>
@@ -233,7 +233,7 @@ export const NewKarte: FC = () => {
                 </InputGroup>
                 <InputGroup>
                   <InputLeftAddon bg={colors.bgLabel}>顔の形</InputLeftAddon>
-                  <Select id="face_shape" value="逆三角">
+                  <Select id="face_shape" value="丸型">
                     <option value="指定なし">指定なし</option>
                     <option value="丸型">丸型</option>
                     <option value="卵型">卵型</option>
@@ -273,7 +273,9 @@ export const NewKarte: FC = () => {
               <AccordionPanel pb={4}>
                 <InputGroup>
                   <InputLeftAddon bg={colors.bgLabel}>髪の長さ</InputLeftAddon>
-                  <Select id="hair_length" value="ロング：肩よりも長い">
+                  <Select
+                    id="hair_length"
+                    value="ショート：首周りで切りそろえられた長さ">
                     <option value="指定なし">指定なし</option>
                     <option value="ベリーショート：耳が完全に見えるような短さ">
                       ベリーショート：耳が完全に見えるような短さ
@@ -296,13 +298,13 @@ export const NewKarte: FC = () => {
                   <InputLeftAddon bg={colors.bgLabel}>
                     髪のカラー
                   </InputLeftAddon>
-                  <Select id="hair_color" value="ピンク">
+                  <Select id="hair_color" value="ブラウン">
                     {getEnumOptionsText(Object.entries(HairColor))}
                   </Select>
                 </InputGroup>
                 <InputGroup>
                   <InputLeftAddon bg={colors.bgLabel}>パーマ</InputLeftAddon>
-                  <Select id="hair_parm" value="カール">
+                  <Select id="hair_parm" value="指定なし">
                     <option value="指定なし">指定なし</option>
                     <option value="ストレート">ストレート</option>
                     <option value="ウェーブ">ウェーブ</option>
@@ -322,8 +324,7 @@ export const NewKarte: FC = () => {
               pr={"4rem"}
               borderRadius={"5rem"}
               height={"3rem"}
-              onClick={getInputValue}
-            >
+              onClick={getInputValue}>
               髪型イメージ選択へ
             </Button>
           </Link>
