@@ -84,10 +84,10 @@ const Sent = () => {
   const [isUploaded, setIsUploaded] = useState<boolean>(false);
   useEffect(() => {
     window.scrollTo(0, 0); // 画面を一番上にスクロールさせます
-    Promise.all([uploadStyle(testPostData)]).then((res) => {
-      console.log(res);
-      setIsUploaded(true);
-    });
+    // Promise.all([uploadStyle(testPostData)]).then((res) => {
+    //   console.log(res);
+    //   setIsUploaded(true);
+    // });
   }, []);
 
   const colorBgImage = colors.bgImage;
